@@ -20,7 +20,7 @@ export const usernameValidate = async (values) => {
 }
 
 
-// validate password 
+// verify password 
 function passwordVerify(errors = {}, values) {
     const specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
 
@@ -43,6 +43,18 @@ function passwordVerify(errors = {}, values) {
 // validate password
 export const passwordValidate = async (values) => {
     const errors = passwordVerify({}, values)
+
+    return errors
+}
+
+
+// validate reset password
+export const resetPasswordValidation = async (values) => {
+    const errors = passwordVerify({}, values)
+
+    if(values.password !== values.confirm_password) {
+        errors.exist = toast.error("Passwords do not match, try again.")
+    }
 
     return errors
 }

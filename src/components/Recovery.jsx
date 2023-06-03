@@ -22,7 +22,7 @@ const Recovery = () => {
 						<form className="pt-20">
 							{/* <div className="profile flex justify-center py-4">
 								<img src={avatar} alt="avatar" className={styles.profile_img} />
-							</div> */}
+							</div> */}                
 
 							<div className="textbox flex flex-col items-center gap-6">
 								<div className="input text-center">
