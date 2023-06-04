@@ -1,62 +1,93 @@
 import styles from "../styles/Username.module.css";
+
 import { Toaster } from "react-hot-toast";
+import { ScrollReveal } from "reveal-on-scroll-react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUnlock } from "@fortawesome/free-solid-svg-icons";
 
 const Recovery = () => {
 	return (
-		<div className="container mx-auto">
-			<Toaster
-				position="top-center"
-				reverseOrder={false}
-				toastOptions={{
-					duration: 2000,
-				}}
-			/>
-			<div className="flex justify-center items-center h-screen">
-				<div className={styles.glass}>
-					<div className="title flex flex-col items-center">
-						<h4 className="text-5xl font-bold">Recover Password</h4>
-						<span className="py-4 text-xl w-2/3 text-center text-gray-500">
-							Enter OTP to recover password.
-						</span>
+		<>
+			{/* Global Container */}
+			<div className="h-full w-full md:w-[50%] fixed z-[1] top-0 overflow-hidden pt-[10rem] bg-white">
+				<Toaster
+					position="top-center"
+					reverseOrder={false}
+					toastOptions={{
+						duration: 2000,
+					}}
+				/>
+				{/* Left Side */}
+				<div className="w-full py-8 px-20">
+					<div className="flex justify-center mx-auto">
+						<ScrollReveal.h1
+							delay={0}
+							easing="anticipate"
+							className="text-[48px] font-black text-center text-[#6366f1] tracking-tighter"
+						>
+							Recover Password
+						</ScrollReveal.h1>
+					</div>
+					<ScrollReveal.h2
+						delay={0.3}
+						easing="anticipate"
+						className="w-[100%] min-w-[250px] md:min-w-[300px] text-gray-500 text-md text-center font-normal italic leading-8"
+					>
+						Enter OTP to recover password.
+					</ScrollReveal.h2>
 
-						<form className="pt-20">
-							{/* <div className="profile flex justify-center py-4">
-								<img src={avatar} alt="avatar" className={styles.profile_img} />
-							</div> */}                
-
-							<div className="textbox flex flex-col items-center gap-6">
-								<div className="input text-center">
-									<span className="py-4 text-sm text-left text-gray-500 ">
-										Enter 6 digit OTP sent to your email address.
-									</span>
+					<ScrollReveal.div delay={0.6} easing="anticipate">
+						<form onSubmit={() => {}} className="py-1">
+							<div className="flex flex-col items-center gap-6">
+								<div className="flex w-full relative">
+									<div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+										<FontAwesomeIcon
+											icon={faUnlock}
+											style={{ color: "#919191" }}
+										/>
+									</div>
 									<input
 										type="text"
-										inputmode="numeric"
-										autocomplete="one-time-code"
+										inputMode="numeric"
+										autoComplete="one-time-code"
 										placeholder="OTP"
-										className={styles.textbox}
+										className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full pl-10 py-2.5"
 									/>
 								</div>
-
 								<button
 									type="submit"
-									className="border bg-indigo-500 w-full py-2 rounded-lg text-gray-50 text-xl shadow-sm text-center hover:bg-[#ff6a6a]"
+									className="border bg-indigo-500 w-full py-2 rounded-lg text-gray-50 text-md shadow-sm text-center hover:bg-[#ff6a6a]"
 								>
 									Recover
 								</button>
 							</div>
-
-							<div className="text-center py-4">
-								<span className="text-gray-500">
-									Didn't get OTP? {""}
-									<button className="text-red-600">Resend</button>
-								</span>
-							</div>
 						</form>
-					</div>
+
+						<div className="flex flex-col items-center justify-between mt-4">
+							<span className="w-1/5 md:w-1/4" />
+							<span className="text-xs text-center uppercase text-gray-400">
+								Didn't get OTP?
+							</span>
+							<button className="text-xs text-center uppercase text-blue-500 hover:text-red-600">
+								Resend
+							</button>
+							<span className="w-1/5 md:w-1/4" />
+						</div>
+					</ScrollReveal.div>
+				</div>
+				{/* Right Side */}
+
+				{/* ADD RECOVERY IMAGE HERE  */}
+				<div className="h-full w-[50%] fixed -z-[1] top-0 overflow-hidden right-0">
+					<div
+						className="w-full h-full gradient-bg hidden md:block bg-cover"
+						style={{
+							backgroundColor: "#6366f1",
+						}}
+					/>
 				</div>
 			</div>
-		</div>
+		</>
 	);
 };
 

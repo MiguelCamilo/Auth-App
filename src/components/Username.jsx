@@ -80,7 +80,7 @@ const Username = () => {
 									type="submit"
 									className="border bg-indigo-500 w-full py-2 rounded-lg text-gray-50 text-xl shadow-sm text-center hover:bg-[#ff6a6a]"
 								>
-									Log in
+									Continue
 								</button>
 							</div>
 						</form>

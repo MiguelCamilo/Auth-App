@@ -143,7 +143,7 @@ const Register = () => {
 
 								<button
 									type="submit"
-									className="border bg-indigo-500 w-full py-2 rounded-lg text-gray-50 text-xl shadow-sm text-center hover:bg-[#ff6a6a]"
+									className="border bg-indigo-500 w-full py-2 rounded-lg text-gray-50 text-md shadow-xl text-center hover:bg-[#ff6a6a]"
 								>
 									Create Account
 								</button>
@@ -152,12 +152,12 @@ const Register = () => {
 
 						<div className="flex items-center justify-between mt-4">
 							<span className="w-1/5 md:w-1/4" />
-							<Link to="/register">
+							<Link to="/">
 								<span className="text-xs text-center uppercase text-gray-400">
-									Don't have an account?
+									Already have an account?
 								</span>{" "}
 								<span className="text-xs text-center uppercase text-blue-500 hover:text-[#ff6a6a]">
-									Create an account
+									Login
 								</span>
 							</Link>
 							<span className="w-1/5 md:w-1/4" />
