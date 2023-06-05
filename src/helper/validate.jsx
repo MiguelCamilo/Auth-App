@@ -59,7 +59,7 @@ export const resetPasswordValidation = async (values) => {
     return errors
 }
 
-// varify email
+// verify email
 function emailVerify(error = {}, values) {
     if(!values.email) {
         error.email = toast.error("Email is required!")
@@ -82,4 +82,12 @@ export const registerValidation = async (values) => {
 
     return errors
 }
+
+// validate profile data
+export const profileValidation = async (values) => {
+    const errors = emailVerify({}, values)
+
+    return errors 
+}
+
 

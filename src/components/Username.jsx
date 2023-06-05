@@ -85,8 +85,7 @@ const Username = () => {
 							</div>
 						</form>
 
-						<div className="flex items-center justify-between mt-4">
-							<span className="w-1/5 md:w-1/4" />
+						<div className="flex flex-wrap w-full justify-center mt-4">							
 							<Link to="/register">
 								<span className="text-xs text-center uppercase text-gray-400">
 									Don't have an account?
@@ -94,8 +93,7 @@ const Username = () => {
 								<span className="text-xs text-center uppercase text-blue-500 hover:text-[#ff6a6a]">
 									Create an account
 								</span>
-							</Link>
-							<span className="w-1/5 md:w-1/4" />
+							</Link>							
 						</div>
 					</ScrollReveal.div>
 				</div>

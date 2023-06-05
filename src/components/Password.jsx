@@ -91,10 +91,10 @@ const Password = () => {
 							<span className="w-1/5 md:w-1/4" />
 							<Link to="/recovery">
 								<span className="text-xs text-center uppercase text-gray-400">
-									Forgot password?
+									forgot password?
 								</span>{" "}
 								<span className="text-xs text-center uppercase text-blue-500 hover:text-[#ff6a6a]">
-									Recover Password
+									reset password
 								</span>
 							</Link>
 							<span className="w-1/5 md:w-1/4" />

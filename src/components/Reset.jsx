@@ -20,6 +20,7 @@ const Reset = () => {
         validateOnBlur: false,
         validateOnChange: false,
         onSubmit: async values => {
+			// logs passed values from above
             console.log(values)
         }
     })
@@ -69,7 +70,7 @@ const Reset = () => {
 										type="password"
 										// sends the username to the formik initial value
 										{...formik.getFieldProps("password")}
-										className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full pl-10 py-2.5"
+										className="bg-gray-50 border-2 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full pl-10 py-2.5"
 										placeholder="Password"
 									/>
 								</div>
@@ -86,8 +87,8 @@ const Reset = () => {
 										type="password"
 										// sends the username to the formik initial value
 										{...formik.getFieldProps("confirm_password")}
-										className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full pl-10 py-2.5"
-										placeholder="Password"
+										className="bg-gray-50 border-2 border-indigo-400 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full pl-10 py-2.5"
+										placeholder="Confirm Password"
 									/>
 								</div>
 								<button
