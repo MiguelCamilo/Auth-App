@@ -52,7 +52,7 @@ const Profile = () => {
 					}}
 				/>
 				{/* Left Side */}
-				<div className="w-full py-8 px-20">
+				<div className="w-full py-8 px-14">
 					<div className="flex justify-center mx-auto">
 						<ScrollReveal.h1
 							delay={0}
@@ -92,7 +92,7 @@ const Profile = () => {
 
 							<div className="flex flex-col items-center gap-6">
 								{/* USER information */}
-								<div className="flex w-3/4 gap-10">
+								<div className="flex w-full gap-10">
 									<div className="flex w-full relative">
 										<div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
 											<FontAwesomeIcon
@@ -125,7 +125,7 @@ const Profile = () => {
 								</div>
 
 								{/* CONTACT information */}
-								<div className="flex w-3/4 gap-10">
+								<div className="flex w-full gap-10">
 									<div className="flex w-full relative">
 										<div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
 											<FontAwesomeIcon
@@ -135,7 +135,7 @@ const Profile = () => {
 										</div>
 										<input
 											type="tel"	
-											maxlength="10" 										
+											maxLength="10" 										
 											{...formik.getFieldProps("phoneNumber")}
 											className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full pl-10 py-2.5 cursor-pointer"
 											placeholder="Phone Number"
