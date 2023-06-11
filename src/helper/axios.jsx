@@ -29,6 +29,7 @@ export const getUser = async ({ username }) => {
 export const registerUser = async (credentials) => {
     try {
         // the post req will return a status code and a message that we are destructuring
+        // and storing in the data var
         const { data: { message } , status } = await axios.post(`api/register`, credentials)
 
         let { username, email } = credentials
@@ -67,6 +68,38 @@ export const updateUser = async(response) => {
     } catch (error) {
         return Promise.reject({ error: "Could not update profile!"})
     }
+}
+
+// generate OTP
+export const generateOTP = async (username) => {
+    try {
+        const { data: { code }, status } = await axios.get("/api/generateOTP", { params: username })
+
+        // send mail with OTP
+        if(status === 201) {
+            let { data: { email }} = await getUser({ username })
+            let text = `Your password Recovery OTP: ${code}`
+            await axios.post("/api/registerMail", { username, userEmail: email, text, subject: "Password Recovery OTP" })
+
+            return Promise.resolve(code)
+        }
+    } catch (error) {
+        return Promise.reject({ error })
+    }
+}
+
+// verify OTP
+export const verifyOTP = async ({ username, code }) => {
+    try {
+        const { data, status } = await axios.get("/api/verifyOTP", { params: { username, code }})
+        return { data, status }
+    } catch (error) {
+        return Promise.reject({ error })
+    }
+}
+
+export const resetPassword = async () => {
+    
 }
 
 
