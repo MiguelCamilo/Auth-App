@@ -1,11 +1,10 @@
-import styles from "../styles/Username.module.css";
-
 import { Toaster } from "react-hot-toast";
 import { ScrollReveal } from "reveal-on-scroll-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUnlock } from "@fortawesome/free-solid-svg-icons";
 
 const Recovery = () => {
+
 	return (
 		<>
 			{/* Global Container */}
@@ -25,7 +24,7 @@ const Recovery = () => {
 							easing="anticipate"
 							className="text-[48px] font-black text-center text-[#6366f1] tracking-tighter"
 						>
-							Recover Password
+							OTP Recover Password
 						</ScrollReveal.h1>
 					</div>
 					<ScrollReveal.h2
@@ -33,26 +32,54 @@ const Recovery = () => {
 						easing="anticipate"
 						className="w-[100%] min-w-[250px] md:min-w-[300px] text-gray-500 text-md text-center font-normal italic leading-8"
 					>
-						Enter OTP to recover password.
+						<FontAwesomeIcon icon={faUnlock} style={{ color: "#919191" }} />
+						{" "}
+						Enter OTP recieved to *user email*
 					</ScrollReveal.h2>
 
 					<ScrollReveal.div delay={0.6} easing="anticipate">
 						<form onSubmit={() => {}} className="py-1">
 							<div className="flex flex-col items-center gap-6">
 								<div className="flex w-full relative">
-									<div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-										<FontAwesomeIcon
-											icon={faUnlock}
-											style={{ color: "#919191" }}
-										/>
+									{/* inputs start */}
+									<div className="flex flex-row items-center justify-between mx-auto w-full max-w-xs">
+										<div className="w-16 h-16 ">
+											<input												
+												className="w-full h-full flex flex-col items-center justify-center text-center px-5 outline-none rounded-xl border border-gray-200 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-blue-700"
+												type="text"
+												maxLength="1"												
+											/>
+										</div>
+										<div className="w-16 h-16 ">
+											<input
+												className="w-full h-full flex flex-col items-center justify-center text-center px-5 outline-none rounded-xl border border-gray-200 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-blue-700"
+												type="text"
+												maxLength="1"
+											/>
+										</div>
+										<div className="w-16 h-16 ">
+											<input
+												className="w-full h-full flex flex-col items-center justify-center text-center px-5 outline-none rounded-xl border border-gray-200 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-blue-700"
+												type="text"
+												maxLength="1"
+											/>
+										</div>
+										<div className="w-16 h-16 ">
+											<input
+												className="w-full h-full flex flex-col items-center justify-center text-center px-5 outline-none rounded-xl border border-gray-200 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-blue-700"
+												type="text"
+												maxLength="1"
+											/>
+										</div>
 									</div>
-									<input
+
+									{/* <input
 										type="text"
 										inputMode="numeric"
 										autoComplete="one-time-code"
 										placeholder="OTP"
 										className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full pl-10 py-2.5"
-									/>
+									/> */}
 								</div>
 								<button
 									type="submit"
