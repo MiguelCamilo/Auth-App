@@ -37,7 +37,7 @@ export const usernameValidate = async (values) => {
 function passwordVerify(errors = {}, values) {
     const specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
 
-    if(!values.password) {
+    if(!values.password === "") {
         errors.password = toast.error("Password Required!")
 
     } else if (values.password.includes(" ")) {

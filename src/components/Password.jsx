@@ -1,4 +1,6 @@
 import avatar from "../assets/profile.png";
+import { useFetch } from "../hooks/fetch.hook";
+import { useAuthStore } from "../config/zustand-store";
 import { passwordValidate } from '../helper/validate'
 import styles from "../styles/Username.module.css";
 
@@ -11,7 +13,11 @@ import { faLock } from "@fortawesome/free-solid-svg-icons";
 
 
 const Password = () => {
-    // useFormik Hook 
+	// with the zustand store, the username is being stored in auth.username
+	// from the Username component from setUsername
+	const { username } = useAuthStore(state => state.auth)
+	const [{ isLoading, apiData, serverError }] = useFetch(`/user/${username}`)
+    
     const formik = useFormik({
         initialValues: {
             // empty string for initial value
@@ -25,6 +31,9 @@ const Password = () => {
             console.log(values)
         }
     })
+
+	if(isLoading) return <h2 className="text-xl font-bold">Loading</h2>
+	if(serverError) return <h3 className="text-xl text-red-600">{serverError.message}</h3>
 
 	return (
 		<>
@@ -47,7 +56,7 @@ const Password = () => {
 							easing="anticipate"
 							className="text-[48px] font-black text-center text-[#6366f1] tracking-tighter"
 						>
-							Hello Again!
+							Hello {apiData?.firstName || apiData?.username}!
 						</ScrollReveal.h1>
 					</div>
 					<ScrollReveal.h2
@@ -61,7 +70,7 @@ const Password = () => {
 					<ScrollReveal.div delay={0.6} easing="anticipate">
 						<form onSubmit={formik.handleSubmit} className="py-1">
 							<div className="profile flex justify-center py-4">
-								<img src={avatar} alt="avatar" className={styles.profile_img} />
+								<img src={apiData?.profile || avatar} alt="avatar" className={styles.profile_img} />
 							</div>
 
 							<div className="flex flex-col items-center gap-6">

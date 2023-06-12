@@ -2,10 +2,11 @@ import avatar from "../assets/profile.png";
 import styles from "../styles/Username.module.css";
 import convertToBase64 from "../helper/convert";
 import { registerValidation } from "../helper/validate";
+import { registerUser } from "../helper/axios";
 
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
-import { Toaster } from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { useState } from "react";
 import { ScrollReveal } from "reveal-on-scroll-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -29,7 +30,14 @@ const Register = () => {
 		validateOnChange: false,
 		onSubmit: async (values) => {
 			values = await Object.assign(values, { profile: file || "" });
-			console.log(values);
+			// await is not need since the registerUser func returns a Promise.resolve
+			let registerPromise = registerUser(values)
+			toast.promise(registerPromise, {
+				loading: 'Loading...',
+				success: <p>Account created!</p>,
+				error: <p>Unable to create account!</p>
+			})			
+			// console.log(values);
 		},
 	});
 
