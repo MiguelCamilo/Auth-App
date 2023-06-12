@@ -1,8 +1,10 @@
 import avatar from "../assets/profile.png";
 import { usernameValidate } from "../helper/validate";
+import { useAuthStore } from "../config/zustand-store";
 import styles from "../styles/Username.module.css";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import { useFormik } from "formik";
 import { Toaster } from "react-hot-toast";
 import { ScrollReveal } from "reveal-on-scroll-react";
@@ -10,6 +12,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 const Username = () => {
+	const navigate = useNavigate()
+
+	// zustand state managment
+	const setUsername = useAuthStore(state => state.setUsername)
+
 	// useFormik Hook
 	const formik = useFormik({
 		initialValues: {
@@ -20,7 +27,9 @@ const Username = () => {
 		validateOnBlur: false,
 		validateOnChange: false,
 		onSubmit: async (values) => {
-			console.log(values);
+			setUsername(values.username)
+			navigate('/password')
+			// console.log(values);
 		},
 	});
 

@@ -15,12 +15,14 @@
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "axios": "^1.4.0",
+    "dotenv": "^16.1.4",
     "formik": "^2.4.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.4.1",
     "react-router-dom": "^6.11.2",
-    "reveal-on-scroll-react": "^0.0.6"
+    "reveal-on-scroll-react": "^0.0.6",
+    "zustand": "^4.3.8"
   },
   "devDependencies": {
     "@types/react": "^18.0.37",

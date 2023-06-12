@@ -1,6 +1,9 @@
 import axios from "axios";
+// import dotenv from 'dotenv';
+// dotenv.config();
 
-// api request
+
+axios.defaults.baseURL = "http://localhost:8080"
 
 export const authenticate = async (username) => {
 	try {
@@ -98,8 +101,16 @@ export const verifyOTP = async ({ username, code }) => {
     }
 }
 
-export const resetPassword = async () => {
-    
+
+export const resetPassword = async ({ username, password }) => {
+    try {
+        const { data, status } = await axios.put("/api/resetPassword", { username, password })
+
+        return Promise.resolve({ data, status })
+
+    } catch (error) {
+        return Promise.reject({ error })
+    }
 }
 
 

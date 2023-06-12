@@ -39,6 +39,8 @@ const Password = () => {
 				/>
 				{/* Left Side */}
 				<div className="w-full py-8 px-20">
+					{/* add if needed */}
+					{/* <button className="relative right-10 bottom-20">Back</button> */}
 					<div className="flex justify-center mx-auto">
 						<ScrollReveal.h1
 							delay={0}

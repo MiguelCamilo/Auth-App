@@ -1,3 +1,5 @@
+import { authenticate } from './axios';
+
 import toast from 'react-hot-toast'
 
 // verify username
@@ -15,6 +17,17 @@ function usernameVerify(error = {}, values){
 // validate login username
 export const usernameValidate = async (values) => {
     const errors = usernameVerify({}, values)
+
+    if(values.username){
+        // check if user exist
+        // we are passing the username that gets passed tot he usernameValidate func
+        const { status, error } = await authenticate(values.username)
+
+        if(status !== 200){
+            // returns error from authenticate axios func
+            errors.exist = toast.error(error)
+        }
+    }
     
     return errors
 }
