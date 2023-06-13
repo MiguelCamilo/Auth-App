@@ -2,11 +2,13 @@ import avatar from "../assets/profile.png";
 import { useFetch } from "../hooks/fetch.hook";
 import { useAuthStore } from "../config/zustand-store";
 import { passwordValidate } from '../helper/validate'
+import { login } from "../helper/axios";
 import styles from "../styles/Username.module.css";
 
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
-import { Toaster } from "react-hot-toast"
+import toast, { Toaster } from "react-hot-toast"
 import { ScrollReveal } from "reveal-on-scroll-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
@@ -17,6 +19,8 @@ const Password = () => {
 	// from the Username component from setUsername
 	const { username } = useAuthStore(state => state.auth)
 	const [{ isLoading, apiData, serverError }] = useFetch(`/user/${username}`)
+
+	const navigate = useNavigate()
     
     const formik = useFormik({
         initialValues: {
@@ -28,7 +32,24 @@ const Password = () => {
         validateOnBlur: false,
         validateOnChange: false,
         onSubmit: async values => {
-            console.log(values)
+			// password is stored in the values object
+			// login takes two arguments username and password
+			let loginPromise = login({ username, password: values.password })
+			toast.promise(loginPromise, {
+				loading: "Loading",
+				success: <b>Login Succesful!</b>,
+				error: <b>Authentication Error, try again.</b>,
+			})
+			loginPromise
+				.then((res) => {
+					// retrieving the jwt token from the data
+					let { token } = res.data
+					// store for access in the updateUser func in axios
+					localStorage.setItem("token", token)
+					navigate("/profile")
+				}).catch((error) => {
+					console.log(error)
+				})
         }
     })
 

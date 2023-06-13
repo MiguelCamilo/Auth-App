@@ -58,7 +58,7 @@ const Username = () => {
 					<ScrollReveal.h2
 						delay={0.3}
 						easing="anticipate"
-						className="w-[100%] min-w-[300px] text-gray-500 text-md text-center font-normal italic leading-8"
+						className="w-[100%] min-w-[245px] text-gray-500 text-md text-center font-normal italic leading-8"
 					>
 						Explore more by connecting with us.
 					</ScrollReveal.h2>

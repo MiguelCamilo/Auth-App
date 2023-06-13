@@ -1,21 +1,28 @@
+// custom imports
 import avatar from "../assets/profile.png";
 import styles from "../styles/Username.module.css";
 import convertToBase64 from "../helper/convert";
 import { registerValidation } from "../helper/validate";
 import { registerUser } from "../helper/axios";
 
-import { Link } from "react-router-dom";
-import { useFormik } from "formik";
-import toast, { Toaster } from "react-hot-toast";
+// react imports
 import { useState } from "react";
+import { useFormik } from "formik";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
+// UI imports
+import toast, { Toaster } from "react-hot-toast";
 import { ScrollReveal } from "reveal-on-scroll-react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import { faPencil } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Register = () => {
 	const [file, setFile] = useState(localStorage.getItem("IMG"));
+	const navigate = useNavigate();
 	// useFormik Hook
 	const formik = useFormik({
 		initialValues: {
@@ -31,13 +38,18 @@ const Register = () => {
 		onSubmit: async (values) => {
 			values = await Object.assign(values, { profile: file || "" });
 			// await is not need since the registerUser func returns a Promise.resolve
-			let registerPromise = registerUser(values)
+			let registerPromise = registerUser(values);
 			toast.promise(registerPromise, {
-				loading: 'Loading...',
+				loading: "Loading",
 				success: <p>Account created!</p>,
-				error: <p>Unable to create account!</p>
-			})			
-			// console.log(values);
+				error: <p>Unable to create account!</p>,
+			});
+			// on success navigate
+			registerPromise
+				.then(() => { navigate("/"); })
+				.catch((error) => {
+					console.log(error)
+				});
 		},
 	});
 
@@ -72,7 +84,7 @@ const Register = () => {
 					<ScrollReveal.h2
 						delay={0.3}
 						easing="anticipate"
-						className="w-[100%] min-w-[300px] text-gray-500 text-md text-center font-normal italic leading-8"
+						className="w-[100%] min-w-[245px] text-gray-500 text-md text-center font-normal italic leading-8"
 					>
 						Let's create an account!
 					</ScrollReveal.h2>
@@ -80,7 +92,15 @@ const Register = () => {
 					<ScrollReveal.div delay={0.6} easing="anticipate">
 						<form onSubmit={formik.handleSubmit} className="py-1">
 							<div className="profile flex justify-center py-4">
-								<label htmlFor="profile">
+								<label htmlFor="profile" className="relative">
+
+									<div className="absolute bottom-0 right-0">
+										<FontAwesomeIcon
+											icon={faPencil}
+											style={{ color: "white" }}
+											className="bg-[#6366f1] p-1.5 rounded-full cursor-pointer"
+										/>
+									</div>
 									{/* to hide the defautl input style look at css file */}
 									<img
 										// conditional render depending on what data exist
@@ -101,10 +121,10 @@ const Register = () => {
 								{/* username */}
 								<div className="flex w-full relative">
 									<div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-										<FontAwesomeIcon 
-                                            icon={faUser}  
+										<FontAwesomeIcon
+											icon={faUser}
 											style={{ color: "#919191" }}
-                                        />
+										/>
 									</div>
 									<input
 										type="text"
@@ -158,8 +178,8 @@ const Register = () => {
 							</div>
 						</form>
 
-						<div className="flex items-center justify-between mt-4">
-							<span className="w-1/5 md:w-1/4" />
+						<div className="flex items-center justify-center mt-4">
+							{/* <span className="w-1/5 md:w-1/4" /> */}
 							<Link to="/">
 								<span className="text-xs text-center uppercase text-gray-400">
 									Already have an account?
@@ -168,7 +188,7 @@ const Register = () => {
 									Login
 								</span>
 							</Link>
-							<span className="w-1/5 md:w-1/4" />
+							{/* <span className="w-1/5 md:w-1/4" /> */}
 						</div>
 					</ScrollReveal.div>
 				</div>
