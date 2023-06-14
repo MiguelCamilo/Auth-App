@@ -1,11 +1,14 @@
 import avatar from "../assets/profile.png";
 import styles from "../styles/Username.module.css";
 import convertToBase64 from "../helper/convert";
+import { useFetch } from "../hooks/fetch.hook";
 import { profileValidation } from "../helper/validate";
+import { updateUser } from "../helper/axios";
 
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
-import { Toaster } from "react-hot-toast";
+import { Toaster, toast } from "react-hot-toast";
 import { useState } from "react";
 import { ScrollReveal } from "reveal-on-scroll-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -15,22 +18,31 @@ import { faPhone } from "@fortawesome/free-solid-svg-icons";
 
 const Profile = () => {
 	const [file, setFile] = useState(localStorage.getItem("IMG"));
+	const [{ isLoading, apiData, serverError }] = useFetch()
+	const navigate = useNavigate()
+
 	// useFormik Hook
 	const formik = useFormik({
 		initialValues: {
 			// empty string for initial value
-			firstName: "",
-			lastName: "",
-			email: "",
-			phoneNumber: ""
+			firstName: apiData?.firstName || "",
+			lastName: apiData?.lastName || "",
+			email: apiData?.email || "",
+			phoneNumber: apiData?.phoneNumber || ""
 		},
-		// only validate on submit instead of:
 		validate: profileValidation,
+		enableReinitialize: true,
+		// only validate on submit instead of:
 		validateOnBlur: false,
 		validateOnChange: false,
 		onSubmit: async (values) => {
-			values = await Object.assign(values, { profile: file || "" });
-			console.log(values);
+			values = await Object.assign(values, { profile: apiData?.profile || file || "" });
+			let updatePromise = updateUser(values)
+			toast.promise(updatePromise, {
+				loading: "Updating",
+				success: <b>Update Succesful!</b>,
+				error: <b>Unable to update, try again.</b>
+			})
 		},
 	});
 
@@ -39,6 +51,14 @@ const Profile = () => {
 		const base64 = await convertToBase64(e.target.files[0]);
 		setFile(base64);
 	};
+
+	const handleLogout = () => {
+		localStorage.removeItem("token")
+		navigate("/")
+	}
+
+	if(isLoading) return <h2 className="text-xl font-bold">Loading</h2>
+	if(serverError) return <h3 className="text-xl text-red-600">{serverError.message}</h3>
 
 	return (
 		<>
@@ -67,7 +87,7 @@ const Profile = () => {
 						easing="anticipate"
 						className="w-[100%] min-w-[300px] text-gray-500 text-md text-center font-normal italic leading-8"
 					>
-						Welcome back!
+						Hello {apiData?.username}!
 					</ScrollReveal.h2>
 
 					<ScrollReveal.div delay={0.6} easing="anticipate">
@@ -77,7 +97,7 @@ const Profile = () => {
 									{/* to hide the defautl input style look at css file */}
 									<img
 										// conditional render depending on what data exist
-										src={file || avatar}
+										src={ apiData?.profile || file || avatar}
 										alt="avatar"
 										className={styles.profile_img}
 									/>
@@ -169,7 +189,7 @@ const Profile = () => {
 						<div className="flex items-center justify-between mt-4">
 							<span className="w-1/5 md:w-1/4" />
 							<Link to="/">
-								<button onClick={() => {}} className="text-xs text-center uppercase text-white bg-red-600 p-1.5 px-4 rounded-md hover:shadow-xl">
+								<button onClick={handleLogout} className="text-xs text-center uppercase text-white bg-red-600 p-1.5 px-4 rounded-md hover:shadow-xl">
 									Logout
 								</button>
 							</Link>

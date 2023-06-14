@@ -1,3 +1,5 @@
+import { getUserName } from "../helper/axios"
+
 import axios from "axios"
 import { useEffect, useState } from "react"
 
@@ -9,14 +11,14 @@ export const useFetch = (query) => {
     const [getData, setData] = useState({ isLoading: false, apiData: undefined, status: null, serverError: null })
 
     useEffect(() => {
-        // if no information is passed to the query stop the func
-        if(!query) return 
-
+        
         const fetchData = async () => {
             try {
                 setData(prev => ({ ...prev, isLoading: true }))
 
-                const { data, status } = await axios.get(`/api/${query}`)
+                const { username } = await getUserName()
+
+                const { data, status } = !query ? await axios.get(`/api/user/${username}`)  : await axios.get(`/api/${query}`)
 
                 if(status === 201) {
                     setData(prev => ({ ...prev, isLoading: false }))

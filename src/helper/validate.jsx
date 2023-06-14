@@ -20,7 +20,7 @@ export const usernameValidate = async (values) => {
 
     if(values.username){
         // check if user exist
-        // we are passing the username that gets passed tot he usernameValidate func
+        // we are passing the username that gets passed to the usernameValidate func
         const { status, error } = await authenticate(values.username)
 
         if(status !== 200){

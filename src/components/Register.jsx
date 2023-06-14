@@ -94,7 +94,7 @@ const Register = () => {
 							<div className="profile flex justify-center py-4">
 								<label htmlFor="profile" className="relative">
 
-									<div className="absolute bottom-0 right-0">
+									<div className="absolute bottom-0 right-2">
 										<FontAwesomeIcon
 											icon={faPencil}
 											style={{ color: "white" }}

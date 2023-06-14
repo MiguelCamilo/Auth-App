@@ -17,8 +17,8 @@ import { faLock } from "@fortawesome/free-solid-svg-icons";
 const Password = () => {
 	// with the zustand store, the username is being stored in auth.username
 	// from the Username component from setUsername
-	const { username } = useAuthStore(state => state.auth)
-	const [{ isLoading, apiData, serverError }] = useFetch(`/user/${username}`)
+	// const { username } = useAuthStore(state => state.auth)
+	const [{ isLoading, apiData, serverError }] = useFetch()
 
 	const navigate = useNavigate()
     
@@ -34,7 +34,7 @@ const Password = () => {
         onSubmit: async values => {
 			// password is stored in the values object
 			// login takes two arguments username and password
-			let loginPromise = login({ username, password: values.password })
+			let loginPromise = login({ username: apiData?.username, password: values.password })
 			toast.promise(loginPromise, {
 				loading: "Loading",
 				success: <b>Login Succesful!</b>,
@@ -53,6 +53,7 @@ const Password = () => {
         }
     })
 
+	
 	if(isLoading) return <h2 className="text-xl font-bold">Loading</h2>
 	if(serverError) return <h3 className="text-xl text-red-600">{serverError.message}</h3>
 
@@ -77,7 +78,7 @@ const Password = () => {
 							easing="anticipate"
 							className="text-[48px] font-black text-center text-[#6366f1] tracking-tighter"
 						>
-							Hello {apiData?.firstName || apiData?.username}!
+							Hello {apiData?.username}!
 						</ScrollReveal.h1>
 					</div>
 					<ScrollReveal.h2

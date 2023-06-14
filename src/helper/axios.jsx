@@ -1,9 +1,11 @@
 import axios from "axios";
+import jwt_decode from "jwt-decode"
 // import dotenv from 'dotenv';
 // dotenv.config();
 
 
 axios.defaults.baseURL = "http://localhost:8080"
+
 
 export const authenticate = async (username) => {
 	try {
@@ -27,6 +29,18 @@ export const getUser = async ({ username }) => {
         return { error: "Password doesn't match." }
     }
 }
+
+// get username fromt token func
+export const getUserName = async () => {
+    const token = localStorage.getItem("token")
+    if(!token) {
+        return Promise.reject("Token Authorization Required.")
+    }
+
+    let decode = jwt_decode(token)
+    return decode
+}
+
 
 // register user
 export const registerUser = async (credentials) => {
