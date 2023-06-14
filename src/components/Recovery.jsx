@@ -1,13 +1,65 @@
-import { Toaster } from "react-hot-toast";
+import { Toaster, toast } from "react-hot-toast";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { ScrollReveal } from "reveal-on-scroll-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUnlock } from "@fortawesome/free-solid-svg-icons";
 
-import { useFetch } from "../hooks/fetch.hook";
+import { useAuthStore } from "../config/zustand-store";
+import { generateOTP, verifyOTP } from "../helper/axios";
 
 const Recovery = () => {
-	let username = sessionStorage.getItem("username")
-	const [{ isLoading, apiData, serverError }] = useFetch(`/user/${username}`)
+	let { username } = useAuthStore((state) => state.auth);
+	const [OTP, setOTP] = useState();
+
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		generateOTP(username)
+			.then((OTP) => {
+				console.log(OTP);
+				if (OTP) return toast.success("OTP has been sent to your email.", {
+					style: {
+						border: "2px solid green",
+						padding: "16px",
+						color: "green",
+						background: "#f4f5f6"
+					},
+				});
+				return toast.error("Unable to generate OTP.");
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	}, [username]);
+
+	const handleSubmit = async (e) => {
+		try {
+			e.preventDefault();
+
+			let { status } = await verifyOTP({ username, code: OTP });
+			if (status === 201) {
+				toast.success("OTP Verification Succesful.");
+				return navigate("/reset");
+			}
+		} catch(error) {
+			return toast.error("Invalid OTP try again.");
+			
+		}
+	};
+
+	// resend OTP
+	const handleResendOTP = () => {
+		let sendPromise = generateOTP(username);
+		toast.promise(sendPromise, {
+			loading: "Generating New OTP",
+			success: <b>OTP sent to your email.</b>,
+			error: <b>Unable to send OTP.</b>,
+		});
+		sendPromise.then((OTP) => {
+			console.log(OTP);
+		});
+	};
 
 	return (
 		<>
@@ -17,7 +69,7 @@ const Recovery = () => {
 					position="top-center"
 					reverseOrder={false}
 					toastOptions={{
-						duration: 2000,
+						duration: 6000,						
 					}}
 				/>
 				{/* Left Side */}
@@ -36,25 +88,17 @@ const Recovery = () => {
 						easing="anticipate"
 						className="w-[100%] min-w-[250px] md:min-w-[300px] text-gray-500 text-md text-center font-normal italic leading-8"
 					>
-						<FontAwesomeIcon icon={faUnlock} style={{ color: "#919191" }} />
-						{" "}
-						Enter OTP recieved to {apiData?.email}
+						<FontAwesomeIcon icon={faUnlock} style={{ color: "#919191" }} />{" "}
+						Enter OTP CODE sent to your email.
 					</ScrollReveal.h2>
 
 					<ScrollReveal.div delay={0.6} easing="anticipate">
-						<form onSubmit={() => {}} className="py-1">
+						<form onSubmit={handleSubmit} className="py-1">
 							<div className="flex flex-col items-center gap-6">
 								<div className="flex w-full relative">
 									{/* inputs start */}
 									<div className="flex flex-row items-center justify-between mx-auto w-full max-w-xs">
-										<div className="w-16 h-16 ">
-											<input												
-												className="w-full h-full flex flex-col items-center justify-center text-center px-5 outline-none rounded-xl border border-gray-200 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-blue-700"
-												type="text"
-												maxLength="1"												
-											/>
-										</div>
-										<div className="w-16 h-16 ">
+										{/* <div className="w-16 h-16 ">
 											<input
 												className="w-full h-full flex flex-col items-center justify-center text-center px-5 outline-none rounded-xl border border-gray-200 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-blue-700"
 												type="text"
@@ -75,15 +119,25 @@ const Recovery = () => {
 												maxLength="1"
 											/>
 										</div>
-									</div>
-
-									{/* <input
+										<div className="w-16 h-16 ">
+											<input
+												className="w-full h-full flex flex-col items-center justify-center text-center px-5 outline-none rounded-xl border border-gray-200 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-blue-700"
+												type="text"
+												maxLength="1"
+											/>
+										</div> */}
+										<input										
+										onChange={e => setOTP(e.target.value)}
 										type="text"
+										maxLength={4}
 										inputMode="numeric"
 										autoComplete="one-time-code"
 										placeholder="OTP"
 										className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full pl-10 py-2.5"
-									/> */}
+									/>
+									</div>
+
+									
 								</div>
 								<button
 									type="submit"
@@ -99,7 +153,11 @@ const Recovery = () => {
 							<span className="text-xs text-center uppercase text-gray-400">
 								Didn't get OTP?
 							</span>
-							<button className="text-xs text-center uppercase text-blue-500 hover:text-red-600">
+							<button
+								onClick={handleResendOTP}
+								type="submit"
+								className="text-xs text-center uppercase text-blue-500 hover:text-red-600"
+							>
 								Resend
 							</button>
 							<span className="w-1/5 md:w-1/4" />
