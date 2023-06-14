@@ -16,7 +16,7 @@ export const useFetch = (query) => {
             try {
                 setData(prev => ({ ...prev, isLoading: true }))
 
-                const { username } = await getUserName()
+                const { username } = !query ? await getUserName() : ''
 
                 const { data, status } = !query ? await axios.get(`/api/user/${username}`)  : await axios.get(`/api/${query}`)
 

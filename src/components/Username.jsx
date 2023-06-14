@@ -28,6 +28,7 @@ const Username = () => {
 		validateOnChange: false,
 		onSubmit: async (values) => {
 			setUsername(values.username)
+			sessionStorage.setItem("username", values.username)
 			navigate('/password')
 			// console.log(values);
 		},

@@ -3,7 +3,11 @@ import { ScrollReveal } from "reveal-on-scroll-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUnlock } from "@fortawesome/free-solid-svg-icons";
 
+import { useFetch } from "../hooks/fetch.hook";
+
 const Recovery = () => {
+	let username = sessionStorage.getItem("username")
+	const [{ isLoading, apiData, serverError }] = useFetch(`/user/${username}`)
 
 	return (
 		<>
@@ -34,7 +38,7 @@ const Recovery = () => {
 					>
 						<FontAwesomeIcon icon={faUnlock} style={{ color: "#919191" }} />
 						{" "}
-						Enter OTP recieved to *user email*
+						Enter OTP recieved to {apiData?.email}
 					</ScrollReveal.h2>
 
 					<ScrollReveal.div delay={0.6} easing="anticipate">
