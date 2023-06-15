@@ -69,7 +69,6 @@ export const login = async ({ username, password }) => {
             const { data } = await axios.post("/api/login", { username, password })
             return Promise.resolve({ data })
         }
-
     } catch (error) {
         return Promise.reject({ error: " Password doesn't match."})
     }

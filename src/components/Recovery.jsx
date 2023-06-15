@@ -17,7 +17,7 @@ const Recovery = () => {
 	useEffect(() => {
 		generateOTP(username)
 			.then((OTP) => {
-				console.log(OTP);
+				// console.log(OTP);
 				if (OTP) return toast.success("OTP has been sent to your email.", {
 					style: {
 						border: "2px solid green",
@@ -55,9 +55,6 @@ const Recovery = () => {
 			loading: "Generating New OTP",
 			success: <b>OTP sent to your email.</b>,
 			error: <b>Unable to send OTP.</b>,
-		});
-		sendPromise.then((OTP) => {
-			console.log(OTP);
 		});
 	};
 

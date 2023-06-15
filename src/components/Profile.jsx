@@ -17,7 +17,7 @@ import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { faPhone } from "@fortawesome/free-solid-svg-icons";
 
 const Profile = () => {
-	const [file, setFile] = useState(localStorage.getItem("IMG"));
+	const [file, setFile] = useState();
 	const [{ isLoading, apiData, serverError }] = useFetch()
 	const navigate = useNavigate()
 

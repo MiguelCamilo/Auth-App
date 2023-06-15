@@ -21,7 +21,7 @@ import { faPencil } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Register = () => {
-	const [file, setFile] = useState(localStorage.getItem("IMG"));
+	const [file, setFile] = useState();
 	const navigate = useNavigate();
 	// useFormik Hook
 	const formik = useFormik({
