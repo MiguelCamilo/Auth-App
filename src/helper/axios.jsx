@@ -128,7 +128,7 @@ export const resetPassword = async ({ username, password }) => {
 
 
 /* 
-    Wee are not using Promises in the getUser function because the function uses async/await syntax 
+    We are not using Promises in the getUser function because the function uses async/await syntax 
     to handle the asynchronous operation, which returns a Promise automatically. 
     However, we are using Promises explicitly in the registerUser function to follow best practices 
     and to ensure that the function always returns a Promise, even if it encounters an error.
