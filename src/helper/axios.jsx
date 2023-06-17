@@ -1,10 +1,10 @@
+import ENV from "../hooks/fetch.url"
+
 import axios from "axios";
 import jwt_decode from "jwt-decode"
-// import dotenv from 'dotenv';
-// dotenv.config();
 
 
-axios.defaults.baseURL = "http://localhost:8080"
+axios.defaults.baseURL = ENV.BASE
 
 
 export const authenticate = async (username) => {
@@ -94,7 +94,7 @@ export const generateOTP = async (username) => {
         // send mail with OTP
         if(status === 201) {
             let { data: { email }} = await getUser({ username })
-            let text = `Your password Recovery OTP: ${code}`
+            let text = `Your Password Recovery OTP: ${code}`
             await axios.post("/api/registerMail", { username, userEmail: email, text, subject: "Password Recovery OTP" })
 
             return Promise.resolve(code)

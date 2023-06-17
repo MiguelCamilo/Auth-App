@@ -1,9 +1,10 @@
+import ENV from "../hooks/fetch.url"
 import { getUserName } from "../helper/axios"
 
 import axios from "axios"
 import { useEffect, useState } from "react"
 
-axios.defaults.baseURL = "http://localhost:8080"
+axios.defaults.baseURL = ENV.BASE
 
 // custom hook to pass any api route and have it fetch the data and status
 // the useFetch hook is a reusable way to fetch data from an API and handle loading and error states

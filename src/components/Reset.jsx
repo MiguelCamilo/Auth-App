@@ -29,6 +29,7 @@ const Reset = () => {
         validateOnChange: false,
         onSubmit: async values => {
 			let resetPromise = resetPassword({ username, password: values.password })
+			
 			toast.promise(resetPromise, {
 				loading: "Loading",
 				success: <b>Password Succesfully Reset!</b>,
@@ -37,13 +38,15 @@ const Reset = () => {
 
 			resetPromise.then(() => {
 				return navigate("/password")
+			}).catch(error => {
+				console.log(error)
 			})
         }
     })
 
-	// if(isLoading) return <h1 className='text-2xl font-bold'>isLoading</h1>;
-	// if(serverError) return <h1 className='text-xl text-red-500'>{serverError.message}</h1>
-	// if(status && status !== 201) return <Navigate to={'/password'} replace={true}></Navigate>
+	if(isLoading) return <h1 className='text-2xl font-bold'>isLoading</h1>;
+	if(serverError) return <Navigate to={"*"} />
+	if(status && status !== 201) return <Navigate to={'/password'} replace={true} />
 
 	return (
 		<>
@@ -70,7 +73,7 @@ const Reset = () => {
 					<ScrollReveal.h2
 						delay={0.3}
 						easing="anticipate"
-						className="w-[100%] min-w-[300px] text-gray-500 text-md text-center font-normal italic leading-8"
+						className="w-[100%] min-w-[300px] text-gray-500 text-md text-center font-bold text-md leading-8"
 					>
 						Enter new password
 					</ScrollReveal.h2>
@@ -91,7 +94,7 @@ const Reset = () => {
 										// sends the username to the formik initial value
 										{...formik.getFieldProps("password")}
 										className="bg-gray-50 border-2 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full pl-10 py-2.5"
-										placeholder="Password"
+										placeholder="New Password"
 									/>
 								</div>
 
@@ -108,7 +111,7 @@ const Reset = () => {
 										// sends the username to the formik initial value
 										{...formik.getFieldProps("confirm_password")}
 										className="bg-gray-50 border-2 border-indigo-400 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full pl-10 py-2.5"
-										placeholder="Confirm Password"
+										placeholder="Confirm New Password"
 									/>
 								</div>
 								<button
@@ -119,19 +122,6 @@ const Reset = () => {
 								</button>
 							</div>
 						</form>
-
-						{/* <div className="flex items-center justify-between mt-4">
-							<span className="w-1/5 md:w-1/4" />
-							<Link to="/recovery">
-								<span className="text-xs text-center uppercase text-gray-400">
-									Forgot password?
-								</span>{" "}
-								<span className="text-xs text-center uppercase text-blue-500 hover:text-[#ff6a6a]">
-									Recover Password
-								</span>
-							</Link>
-							<span className="w-1/5 md:w-1/4" />
-						</div> */}
 					</ScrollReveal.div>
 				</div>
 				{/* Right Side */}
