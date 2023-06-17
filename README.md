@@ -5,6 +5,8 @@ Created an a Full Stack Authentication Web App that has (OTP Verification, JWT T
 
 
 Link to the Web App: https://auth-app-company.web.app
+
+Link to REST API: https://github.com/MiguelCamilo/auth-app-server
 ## Screenshots
 
 ![App Screenshot](./public/images/README.png)
