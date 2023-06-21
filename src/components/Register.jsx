@@ -14,11 +14,11 @@ import { useNavigate } from "react-router-dom";
 // UI imports
 import toast, { Toaster } from "react-hot-toast";
 import { ScrollReveal } from "reveal-on-scroll-react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { faPencil } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Register = () => {
 	const [file, setFile] = useState();
@@ -113,6 +113,8 @@ const Register = () => {
 										type="file"
 										id="profile"
 										name="profile"
+										// allows for only image files upload
+										accept="image/*"
 									/>
 								</label>
 							</div>

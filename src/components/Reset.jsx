@@ -2,6 +2,7 @@ import { resetPasswordValidation } from '../helper/validate'
 import { resetPassword } from '../helper/axios';
 import { useAuthStore } from "../config/zustand-store";
 import { useFetch } from '../hooks/fetch.hook';
+import LoadingAnim from './LoadingAnim';
 
 import { useFormik } from "formik";
 import { useNavigate, Navigate } from 'react-router-dom';
@@ -9,6 +10,7 @@ import { Toaster, toast } from "react-hot-toast"
 import { ScrollReveal } from "reveal-on-scroll-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
+import { faUnlock } from '@fortawesome/free-solid-svg-icons';
 
 const Reset = () => {
 	const { username } = useAuthStore(state => state.auth)
@@ -44,7 +46,7 @@ const Reset = () => {
         }
     })
 
-	if(isLoading) return <h1 className='text-2xl font-bold'>isLoading</h1>;
+	if(isLoading) return <LoadingAnim />
 	if(serverError) return <Navigate to={"*"} />
 	if(status && status !== 201) return <Navigate to={'/password'} replace={true} />
 
@@ -85,7 +87,7 @@ const Reset = () => {
 								<div className="flex w-full relative">
 									<div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
 										<FontAwesomeIcon
-											icon={faLock}
+											icon={faUnlock}
 											style={{ color: "#919191" }}
 										/>
 									</div>

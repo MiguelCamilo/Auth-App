@@ -1,6 +1,6 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
-import Username from './components/UserName'
+import Username from './components/Username'
 import Register from './components/Register'
 import Password from './components/Password'
 import Recovery from './components/Recovery'
@@ -28,7 +28,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/recovery',
-    element: <Recovery/> 
+    element: <ProtectedRoute> <Recovery/>  </ProtectedRoute>
   },
   {
     path: '/reset',
@@ -47,9 +47,7 @@ const router = createBrowserRouter([
 const App = () => {
   return (
     <main>
-      <RouterProvider router={router}>
-        
-      </RouterProvider>
+      <RouterProvider router={router} />
     </main>
   );
 }

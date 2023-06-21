@@ -4,11 +4,13 @@ import { useAuthStore } from "../config/zustand-store";
 import { passwordValidate } from '../helper/validate'
 import { login } from "../helper/axios";
 import styles from "../styles/Username.module.css";
+import LoadingAnim from "./LoadingAnim";
 
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { useFormik } from "formik";
+
 import toast, { Toaster } from "react-hot-toast"
+import { useFormik } from "formik";
 import { ScrollReveal } from "reveal-on-scroll-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
@@ -55,7 +57,7 @@ const Password = () => {
     })
 
 	
-	if(isLoading) return <h2 className="text-xl font-bold">Loading</h2>
+	if(isLoading) return <LoadingAnim />
 	if(serverError) return <h3 className="text-xl text-red-600">{serverError.message}</h3>
 
 	return (
@@ -85,7 +87,7 @@ const Password = () => {
 					<ScrollReveal.h2
 						delay={0.3}
 						easing="anticipate"
-						className="w-[100%] min-w-[300px] text-gray-500 text-md text-center font-normal italic leading-8"
+						className="w-[100%] min-w-[240px] text-gray-500 text-md text-center font-normal italic leading-8"
 					>
 						Explore more by connecting with us.
 					</ScrollReveal.h2>

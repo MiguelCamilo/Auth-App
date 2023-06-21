@@ -61,7 +61,7 @@ const Recovery = () => {
 	return (
 		<>
 			{/* Global Container */}
-			<div className="h-full w-full md:w-[50%] fixed z-[1] top-0 overflow-hidden pt-[10rem] bg-white">
+			<div className="h-full w-full md:w-[50%] fixed z-[1] top-0 overflow-hidden pt-[5rem] md:pt-[10rem] bg-white">
 				<Toaster
 					position="top-center"
 					reverseOrder={false}

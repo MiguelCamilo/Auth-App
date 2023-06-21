@@ -76,7 +76,7 @@ export const login = async ({ username, password }) => {
 
 // update user profile function
 export const updateUser = async(response) => {
-    try {
+    try {        
         const token = await localStorage.getItem("token")
         // response will hold updated data
         const data = await axios.put("/api/updateuser", response, { headers: { "Authorization": `Bearer ${token}` }})

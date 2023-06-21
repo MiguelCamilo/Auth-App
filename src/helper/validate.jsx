@@ -98,6 +98,10 @@ export const registerValidation = async (values) => {
 
 // validate profile data
 export const profileValidation = async (values) => {
+    if(!values) {
+        toast.error("Please fill out all necessary fields.")
+    }
+    
     const errors = emailVerify({}, values)
 
     return errors 

@@ -4,6 +4,8 @@ import convertToBase64 from "../helper/convert";
 import { useFetch } from "../hooks/fetch.hook";
 import { profileValidation } from "../helper/validate";
 import { updateUser } from "../helper/axios";
+import DropDown from "./DropDown";
+import LoadingAnim from "./LoadingAnim";
 
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -15,11 +17,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { faPhone } from "@fortawesome/free-solid-svg-icons";
+import { faPencil } from "@fortawesome/free-solid-svg-icons";
 
 const Profile = () => {
+	const [reveal, setReveal] = useState(true)
 	const [file, setFile] = useState();
-	const [{ isLoading, apiData, serverError }] = useFetch()
-	const navigate = useNavigate()
+	const [{ isLoading, apiData, serverError }] = useFetch();
+	const navigate = useNavigate();
 
 	// useFormik Hook
 	const formik = useFormik({
@@ -28,7 +32,7 @@ const Profile = () => {
 			firstName: apiData?.firstName || "",
 			lastName: apiData?.lastName || "",
 			email: apiData?.email || "",
-			phoneNumber: apiData?.phoneNumber || ""
+			phoneNumber: apiData?.phoneNumber || "",
 		},
 		validate: profileValidation,
 		enableReinitialize: true,
@@ -37,12 +41,16 @@ const Profile = () => {
 		validateOnChange: false,
 		onSubmit: async (values) => {
 			values = await Object.assign(values, { profile: apiData?.profile || file || "" });
-			let updatePromise = updateUser(values)
+
+			let updatePromise = updateUser(values);
+			
 			toast.promise(updatePromise, {
 				loading: "Updating",
 				success: <b>Update Succesful!</b>,
-				error: <b>Unable to update, try again.</b>
-			})
+				error: <b>Unable to update, try again.</b>,
+			});
+
+			setReveal(!reveal)
 		},
 	});
 
@@ -53,12 +61,17 @@ const Profile = () => {
 	};
 
 	const handleLogout = () => {
-		localStorage.removeItem("token")
-		navigate("/")
-	}
+		localStorage.removeItem("token");
+		navigate("/");
+	};
 
-	if(isLoading) return <h2 className="text-xl font-bold">Loading</h2>
-	if(serverError) return <h3 className="text-xl text-red-600">{serverError.message}</h3>
+	const handleReveal = () => {
+        setReveal(!reveal)
+    }
+
+	if (isLoading) return <LoadingAnim/>;
+	if (serverError)
+		return <h3 className="text-xl text-red-600">{serverError.message}</h3>;
 
 	return (
 		<>
@@ -72,8 +85,14 @@ const Profile = () => {
 					}}
 				/>
 				{/* Left Side */}
-				<div className="w-full py-8 px-14">
+				<div className="w-full py-8 px-14">					
 					<div className="flex justify-center mx-auto">
+
+					<DropDown
+						handleLogout={handleLogout}
+						handleReveal={handleReveal}
+					/>
+
 						<ScrollReveal.h1
 							delay={0}
 							easing="anticipate"
@@ -93,11 +112,18 @@ const Profile = () => {
 					<ScrollReveal.div delay={0.6} easing="anticipate">
 						<form onSubmit={formik.handleSubmit} className="py-1">
 							<div className="profile flex justify-center py-4">
-								<label htmlFor="profile">
+								<label htmlFor="profile" className="relative">
+									<div className="absolute -bottom-1 right-1">
+										<FontAwesomeIcon
+											icon={faPencil}
+											style={{ color: "white" }}
+											className="bg-[#6366f1] p-1.5 rounded-full cursor-pointer"
+										/>
+									</div>
 									{/* to hide the defautl input style look at css file */}
 									<img
 										// conditional render depending on what data exist
-										src={ apiData?.profile || file || avatar}
+										src={apiData?.profile || file || avatar}
 										alt="avatar"
 										className={styles.profile_img}
 									/>
@@ -106,25 +132,28 @@ const Profile = () => {
 										type="file"
 										id="profile"
 										name="profile"
+										accept="image/*"
+										disabled={ reveal ? true : false }
 									/>
 								</label>
 							</div>
 
 							<div className="flex flex-col items-center gap-6">
 								{/* USER information */}
-								<div className="flex w-full gap-10">
+								<div className="flex flex-col w-full gap-5">
 									<div className="flex w-full relative">
 										<div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
 											<FontAwesomeIcon
-												icon={faUser}
-												style={{ color: "#919191" }}
+												icon={faUser}												
+												className={`${ reveal ? "text-gray-500" : "text-green-500 animate-pulse" }`}
 											/>
 										</div>
 										<input
 											type="text"
 											// sends the firstName to the formik initial value
-											{...formik.getFieldProps("firstName")}
-											className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full pl-10 py-2.5 cursor-pointer"
+											{...formik.getFieldProps("firstName")}											
+											className={`${ reveal ? "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full pl-10 py-2.5 cursor-pointer" : "bg-gray-50 border-2 border-green-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full pl-10 py-2.5 cursor-pointer"}`}		
+											disabled={ reveal ? true : false }									
 											placeholder="Firstname"
 										/>
 									</div>
@@ -132,32 +161,34 @@ const Profile = () => {
 										<div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
 											<FontAwesomeIcon
 												icon={faUser}
-												style={{ color: "#919191" }}
+												className={`${ reveal ? "text-gray-500" : "text-green-500 animate-pulse" }`}
 											/>
 										</div>
 										<input
-											type="text"											
+											type="text"
 											{...formik.getFieldProps("lastName")}
-											className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full pl-10 py-2.5 cursor-pointer"
+											className={`${ reveal ? "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full pl-10 py-2.5 cursor-pointer" : "bg-gray-50 border-2 border-green-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full pl-10 py-2.5 cursor-pointer"}`}
+											disabled={ reveal ? true : false }
 											placeholder="Lastname"
 										/>
 									</div>
 								</div>
 
 								{/* CONTACT information */}
-								<div className="flex w-full gap-10">
+								<div className="flex flex-col w-full gap-5">
 									<div className="flex w-full relative">
 										<div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
 											<FontAwesomeIcon
 												icon={faPhone}
-												style={{ color: "#919191" }}
+												className={`${ reveal ? "text-gray-500" : "text-green-500 animate-pulse" }`}
 											/>
 										</div>
 										<input
-											type="tel"	
-											maxLength="10" 										
+											type="tel"
+											maxLength="10"
 											{...formik.getFieldProps("phoneNumber")}
-											className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full pl-10 py-2.5 cursor-pointer"
+											className={`${ reveal ? "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full pl-10 py-2.5 cursor-pointer" : "bg-gray-50 border-2 border-green-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full pl-10 py-2.5 cursor-pointer"}`}
+											disabled={ reveal ? true : false }
 											placeholder="Phone Number"
 										/>
 									</div>
@@ -165,13 +196,14 @@ const Profile = () => {
 										<div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
 											<FontAwesomeIcon
 												icon={faEnvelope}
-												style={{ color: "#919191" }}
+												className={`${ reveal ? "text-gray-500" : "text-green-500 animate-pulse" }`}
 											/>
 										</div>
 										<input
-											type="email"											
+											type="email"
 											{...formik.getFieldProps("email")}
-											className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full pl-10 py-2.5 cursor-pointer"
+											className={`${ reveal ? "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full pl-10 py-2.5 cursor-pointer" : "bg-gray-50 border-2 border-green-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full pl-10 py-2.5 cursor-pointer"}`}
+											disabled={ reveal ? true : false }
 											placeholder="Email"
 										/>
 									</div>
@@ -179,22 +211,12 @@ const Profile = () => {
 
 								<button
 									type="submit"
-									className="border bg-indigo-500 w-full py-2 rounded-lg text-gray-50 text-md shadow-xl text-center hover:bg-[#ff6a6a]"
+									className={`${ reveal ? "hidden" : "border bg-indigo-500 w-full py-2 rounded-lg text-gray-50 text-md shadow-xl text-center hover:bg-[#ff6a6a]"}`}
 								>
 									Update
 								</button>
 							</div>
-						</form>
-
-						<div className="flex items-center justify-between mt-4">
-							<span className="w-1/5 md:w-1/4" />
-							<Link to="/">
-								<button onClick={handleLogout} className="text-xs text-center uppercase text-white bg-red-600 p-1.5 px-4 rounded-md hover:shadow-xl">
-									Logout
-								</button>
-							</Link>
-							<span className="w-1/5 md:w-1/4" />
-						</div>
+						</form>						
 					</ScrollReveal.div>
 				</div>
 				{/* Right Side */}

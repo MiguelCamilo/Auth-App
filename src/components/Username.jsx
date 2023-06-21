@@ -26,7 +26,7 @@ const Username = () => {
 	// useFormik Hook
 	const userNameFormik = useFormik({
 		initialValues: {
-			username: ""
+			username: "",
 		},
 		// only validate on submit instead of:
 		validate: usernameValidate,
@@ -44,24 +44,26 @@ const Username = () => {
 		initialValues: {
 			name: "",
 			email: "",
-			feedback: ""
+			feedback: "",
 		},
 		validateOnBlur: false,
 		validateOnChange: false,
 		onSubmit: async (values, { resetForm }) => {
-			let userFeedbackPromise = submitUserFeedback(values)
-			toast.promise(userFeedbackPromise, {
-				loading: "Loading",
-				success: <p>Thank you for your feedback!</p>,
-				error: <p>Unable to submit feedback, try again.</p>,
-			})
-			userFeedbackPromise.then(() => {
-				resetForm()
-				setIsOpen(!isOpen)
-			}).catch(error => console.log(error))
-			// console.log(values)
-		}
-	})
+			// let userFeedbackPromise = submitUserFeedback(values);
+			// toast.promise(userFeedbackPromise, {
+			// 	loading: "Loading",
+			// 	success: <p>Thank you for your feedback!</p>,
+			// 	error: <p>Unable to submit feedback, try again.</p>,
+			// });
+			// userFeedbackPromise
+			// 	.then(() => {
+			// 		resetForm();
+			// 		setIsOpen(!isOpen);
+			// 	})
+			// 	.catch((error) => console.log(error));
+			console.log(values) 
+		},
+	});
 
 	return (
 		<>
@@ -75,7 +77,7 @@ const Username = () => {
 					}}
 				/>
 				{/* Left Side */}
-				<div className="w-full py-8 px-20">
+				<div className="w-full py-1 md:py-8 px-20">
 					<div className="flex justify-center mx-auto">
 						<ScrollReveal.h1
 							delay={0}
@@ -156,7 +158,7 @@ const Username = () => {
 							<Transition appear show={isOpen} as={Fragment}>
 								<Dialog
 									as="div"
-									className="absolute top-[15rem] bottom-0 left-0 right-0 z-10"
+									className="absolute top-[12rem] md:top-[15rem] bottom-0 left-0 right-0 z-10"
 									onClose={() => {
 										setIsOpen(!isOpen);
 									}}
@@ -186,8 +188,10 @@ const Username = () => {
 											>
 												<Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
 													<form onSubmit={feedBackFormik.handleSubmit}>
-													<label className="text-lg text-gray-700 ">How can we improve?</label>
-													<div className="mb-3">
+														<label className="text-lg text-gray-700 ">
+															How can we improve?
+														</label>
+														<div className="mb-3">
 															<input
 																{...feedBackFormik.getFieldProps("name")}
 																type="text"
@@ -196,10 +200,13 @@ const Username = () => {
 																required
 																className="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-indigo-500 focus:border-indigo-500 placeholder:text-sm"
 															/>
-															<input type="hidden" name="_gotcha" style={{ display: "none !important" }} />
-
+															<input
+																type="hidden"
+																name="_gotcha"
+																style={{ display: "none !important" }}
+															/>
 														</div>
-														<div className="mb-3">
+														<div className="mb-2">
 															<input
 																{...feedBackFormik.getFieldProps("email")}
 																type="text"
@@ -210,19 +217,24 @@ const Username = () => {
 															/>
 														</div>
 														<div className="mb-3">
-															<input
+															<label
+																htmlFor="message"
+																className="block mb-1 text-sm font-medium text-gray-900"
+															>
+																Your thoughts:
+															</label>
+															<textarea
 																{...feedBackFormik.getFieldProps("feedback")}
-																type="text"
-																id="large-input"
+																id="message"
+																rows={4}
+																className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-indigo-500 focus:border-indigo-500"
 																placeholder="Feedback..."
-																required
-																className="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-indigo-500 focus:border-indigo-500 placeholder:text-sm"
 															/>
 														</div>
 
 														<button
 															type="submit"
-															className="text-white bg-indigo-500 hover:bg-[#ff6a6a] focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm px-3 py-2 text-center inline-flex items-center"
+															className="w-full text-white bg-indigo-500 hover:bg-[#ff6a6a] focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm px-3 py-2 text-center inline-flex justify-center"
 														>
 															Submit
 															<svg
