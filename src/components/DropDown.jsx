@@ -3,6 +3,8 @@ import { Menu, Transition } from "@headlessui/react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGear } from "@fortawesome/free-solid-svg-icons";
+import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 
 const DropDown = ({ handleLogout, handleReveal }) => {
 
@@ -11,7 +13,7 @@ const DropDown = ({ handleLogout, handleReveal }) => {
 			<Menu as="div" className="relative inline-block text-left">
 				<div>
 					<Menu.Button className="inline-flex w-full justify-center rounded-md px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
-                        <FontAwesomeIcon icon={faGear} className="text-gray-600 h-7 w-7 hover:rotate-45 duration-150" />
+                        <FontAwesomeIcon icon={faGear} className="text-gray-500 h-7 w-7 hover:rotate-45 duration-150 drop-shadow-xl" />
 					</Menu.Button>
 				</div>
 				<Transition
@@ -33,6 +35,10 @@ const DropDown = ({ handleLogout, handleReveal }) => {
 											active ? "bg-gray-100" : "text-gray-900"
 										} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
 									>
+										<FontAwesomeIcon
+											icon={faPenToSquare}
+											className="h-3.5 w-3.5 mr-2 text-gray-600"
+										/>
 										Update
 									</button>
 								)}
@@ -46,6 +52,10 @@ const DropDown = ({ handleLogout, handleReveal }) => {
 											active ? "bg-red-500 text-white" : "text-gray-900"
 										} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
 									>
+										<FontAwesomeIcon
+											icon={faArrowRightFromBracket}
+											className={`${ active ? "mr-2" : "h-3.5 w-3.5 mr-2 text-gray-600"}`}
+										/>
 										Logout
 									</button>
 								)}

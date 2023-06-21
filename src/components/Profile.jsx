@@ -7,7 +7,6 @@ import { updateUser } from "../helper/axios";
 import DropDown from "./DropDown";
 import LoadingAnim from "./LoadingAnim";
 
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { Toaster, toast } from "react-hot-toast";
@@ -40,8 +39,7 @@ const Profile = () => {
 		validateOnBlur: false,
 		validateOnChange: false,
 		onSubmit: async (values) => {
-			values = await Object.assign(values, { profile: apiData?.profile || file || "" });
-
+			values = await Object.assign(values, { profile: file || apiData?.profile || "" });
 			let updatePromise = updateUser(values);
 			
 			toast.promise(updatePromise, {
@@ -114,19 +112,20 @@ const Profile = () => {
 							<div className="profile flex justify-center py-4">
 								<label htmlFor="profile" className="relative">
 									<div className="absolute -bottom-1 right-1">
-										<FontAwesomeIcon
+										 <FontAwesomeIcon
 											icon={faPencil}
 											style={{ color: "white" }}
 											className="bg-[#6366f1] p-1.5 rounded-full cursor-pointer"
-										/>
+										/> 
 									</div>
 									{/* to hide the defautl input style look at css file */}
 									<img
 										// conditional render depending on what data exist
-										src={apiData?.profile || file || avatar}
+										src={file || apiData?.profile}
 										alt="avatar"
 										className={styles.profile_img}
 									/>
+
 									<input
 										onChange={onUpload}
 										type="file"
@@ -184,12 +183,12 @@ const Profile = () => {
 											/>
 										</div>
 										<input
-											type="tel"
+											type={`${ reveal ? "password" : "tel"}`}										
 											maxLength="10"
 											{...formik.getFieldProps("phoneNumber")}
 											className={`${ reveal ? "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full pl-10 py-2.5 cursor-pointer" : "bg-gray-50 border-2 border-green-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full pl-10 py-2.5 cursor-pointer"}`}
 											disabled={ reveal ? true : false }
-											placeholder="Phone Number"
+											placeholder="123-456-7890"
 										/>
 									</div>
 									<div className="flex w-full relative">
@@ -200,7 +199,7 @@ const Profile = () => {
 											/>
 										</div>
 										<input
-											type="email"
+											type={`${ reveal ? "password" : "email"}`}
 											{...formik.getFieldProps("email")}
 											className={`${ reveal ? "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full pl-10 py-2.5 cursor-pointer" : "bg-gray-50 border-2 border-green-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full pl-10 py-2.5 cursor-pointer"}`}
 											disabled={ reveal ? true : false }
