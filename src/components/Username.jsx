@@ -1,6 +1,5 @@
 import { usernameValidate } from "../helper/validate";
 import { useAuthStore } from "../config/zustand-store";
-import { submitUserFeedback } from "../helper/axios";
 import avatar from "../assets/profile.png";
 import styles from "../styles/Username.module.css";
 
@@ -49,19 +48,18 @@ const Username = () => {
 		validateOnBlur: false,
 		validateOnChange: false,
 		onSubmit: async (values, { resetForm }) => {
-			// let userFeedbackPromise = submitUserFeedback(values);
-			// toast.promise(userFeedbackPromise, {
-			// 	loading: "Loading",
-			// 	success: <p>Thank you for your feedback!</p>,
-			// 	error: <p>Unable to submit feedback, try again.</p>,
-			// });
-			// userFeedbackPromise
-			// 	.then(() => {
-			// 		resetForm();
-			// 		setIsOpen(!isOpen);
-			// 	})
-			// 	.catch((error) => console.log(error));
-			console.log(values) 
+			let userFeedbackPromise = submitUserFeedback(values);
+			toast.promise(userFeedbackPromise, {
+				loading: "Loading",
+				success: <p>Thank you for your feedback!</p>,
+				error: <p>Unable to submit feedback, try again.</p>,
+			});
+			userFeedbackPromise
+				.then(() => {
+					resetForm();
+					setIsOpen(!isOpen);
+				})
+				.catch((error) => console.log(error));		
 		},
 	});
 
@@ -236,7 +234,7 @@ const Username = () => {
 															type="submit"
 															className="w-full text-white bg-indigo-500 hover:bg-[#ff6a6a] focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm px-3 py-2 text-center inline-flex justify-center"
 														>
-															Submit
+															SUBMIT
 															<svg
 																aria-hidden="true"
 																className="w-5 h-5 ml-2 -mr-1"
