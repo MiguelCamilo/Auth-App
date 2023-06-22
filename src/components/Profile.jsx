@@ -96,7 +96,7 @@ const Profile = () => {
 							easing="anticipate"
 							className="text-[48px] font-black text-center text-[#6366f1] tracking-tighter cursor-default"
 						>
-							Profile
+							Account Details
 						</ScrollReveal.h1>
 					</div>
 					<ScrollReveal.h2
@@ -139,7 +139,7 @@ const Profile = () => {
 
 							<div className="flex flex-col items-center gap-6">
 								{/* USER information */}
-								<div className="flex flex-col w-full gap-5">
+								<div className="flex flex-col md:flex-row w-full gap-5">
 									<div className="flex w-full relative">
 										<div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
 											<FontAwesomeIcon
@@ -174,7 +174,7 @@ const Profile = () => {
 								</div>
 
 								{/* CONTACT information */}
-								<div className="flex flex-col w-full gap-5">
+								<div className="flex flex-col md:flex-row w-full gap-5">
 									<div className="flex w-full relative">
 										<div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
 											<FontAwesomeIcon
