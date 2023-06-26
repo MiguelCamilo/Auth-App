@@ -1,13 +1,12 @@
 import styles from "../styles/Username.module.css";
+import LoadingAnim from "./LoadingAnim";
+import Navbar from "./Navbar";
 import convertToBase64 from "../helper/convert";
 import { useFetch } from "../hooks/fetch.hook";
 import { profileValidation } from "../helper/validate";
 import { updateUser } from "../helper/axios";
-import DropDown from "./DropDown";
-import Navbar from "./Navbar";
-import LoadingAnim from "./LoadingAnim";
 
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import { Toaster, toast } from "react-hot-toast";
 import { useState } from "react";
@@ -16,12 +15,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { faPhone } from "@fortawesome/free-solid-svg-icons";
+import { faEdit } from "@fortawesome/free-solid-svg-icons";
+import { faLock } from "@fortawesome/free-solid-svg-icons";
 
 const Profile = () => {
 	const [reveal, setReveal] = useState(true);
 	const [file, setFile] = useState();
 	const [{ isLoading, apiData, serverError }] = useFetch();
-	const navigate = useNavigate();
 
 	// useFormik Hook
 	const formik = useFormik({
@@ -59,11 +59,6 @@ const Profile = () => {
 		setFile(base64);
 	};
 
-	const handleLogout = () => {
-		localStorage.removeItem("token");
-		navigate("/");
-	};
-
 	const handleReveal = () => {
 		setReveal(!reveal);
 	};
@@ -82,18 +77,25 @@ const Profile = () => {
 				}}
 			/>
 			<Navbar file={file} />
-			<div className="h-screen max-w-[2520px] mx-auto xl:px-28 md:px-20 sm:px-2 px-4 bg-gray-100">
+			<div className="max-h-[2520px] max-w-[2520px] mx-auto xl:px-28 md:px-20 sm:px-2 px-4 bg-gray-100">
 				{/* container */}
 				<ScrollReveal.h1
 					delay={0}
 					easing="anticipate"
-					className="flex pt-5 text-xl font-black"
+					className="flex pt-[7rem] text-xl font-black"
 				>
 					Settings
 				</ScrollReveal.h1>
 				<hr />
-				<div className="flex pt-[2rem]">
-					<div className="flex flex-col justify-start h-[40rem] p-10 w-full bg-white rounded">
+				<div className="flex pt-4">
+					<div className="flex flex-col justify-start h-[50rem] p-10 w-full bg-white rounded relative">
+						<button
+							className="absolute top-5 right-5 duration-100 rounded-md text-white p-2"
+							onClick={handleReveal}
+						>
+							<FontAwesomeIcon icon={faEdit} className="text-indigo-500 h-6 w-6 hover:text-[#ff6a6a]"/>
+						</button>
+
 						{/* FIRST ROW CONTAINER */}
 						<div className="flex justify-start w-full ">
 							<ScrollReveal.div
@@ -113,11 +115,11 @@ const Profile = () => {
 							</ScrollReveal.div>
 
 							<div className="flex flex-col justify-start w-full">
-								<div className="flex flex-col ">
+								<div className="flex flex-col">
 									<ScrollReveal.h2
 										delay={0.6}
 										easing="anticipate"
-										className="ml-10 text-lg font-semibold"
+										className="ml-10 text-lg font-semibold w-0"
 									>
 										Avatar
 									</ScrollReveal.h2>
@@ -138,8 +140,8 @@ const Profile = () => {
 											<div
 												className={`${
 													reveal
-														? "text-center shrink-0 ml-9 p-2 mt-2 bg-gray-500 hover:bg-gray-600 rounded-2xl text-white text-sm w-[60%] md:w-[30%] lg:w-[10%] cursor-not-allowed"
-														: "text-center shrink-0 ml-9 p-2 mt-2 bg-indigo-500 hover:bg-indigo-600 rounded-2xl text-white text-sm w-[60%] md:w-[30%] lg:w-[10%] cursor-pointer"
+														? "text-center shrink-0 ml-9 p-2 mt-2 bg-gray-500 hover:bg-gray-600 rounded-2xl text-white text-sm w-[40%] md:w-[30%] lg:w-[20%] cursor-not-allowed"
+														: "text-center shrink-0 ml-9 p-2 mt-2 bg-indigo-500 hover:bg-[#ff6a6a] rounded-2xl text-white text-sm w-[40%] md:w-[30%] lg:w-[20%] cursor-pointer"
 												}`}
 											>
 												Upload New
@@ -250,7 +252,7 @@ const Profile = () => {
 
 								<div className="col-span-6 sm:col-span-3 relative">
 									<label
-										htmlFor="Email"
+										htmlFor="Phonenumber"
 										className="block text-sm font-medium text-gray-700"
 									>
 										Phone Number
@@ -268,8 +270,8 @@ const Profile = () => {
 									<input
 										type={`${reveal ? "password" : "tel"}`}
 										{...formik.getFieldProps("phoneNumber")}
-										id="Email"
-										name="email"
+										id="Phonenumber"
+										name="phonenumber"
 										className="mt-1 w-full rounded-md p-2 border border-gray-200 bg-white text-sm text-gray-700 shadow-sm cursor-pointer pl-10"
 										disabled={reveal ? true : false}
 									/>
@@ -286,6 +288,14 @@ const Profile = () => {
 								Update
 							</button>
 						</form>
+						<div className="flex flex-row pt-5 font-extrabold">
+							<FontAwesomeIcon icon={faLock} className="text-gray-500 pr-2 pt-1"/>
+							<h4>Password</h4>							
+						</div>
+							<hr />
+						<Link to={"/recovery"}>
+							<button className="bg-gray-500 hover:bg-gray-400 duration-150 p-2 mt-5 rounded-md text-white">Reset Password</button>
+						</Link>
 					</div>
 				</div>
 			</div>
