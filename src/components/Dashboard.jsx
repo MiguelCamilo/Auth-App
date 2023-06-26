@@ -12,7 +12,6 @@ const Dashboard = () => {
 	const [reveal, setReveal] = useState(true)
 	return (
 		<>
-
 		</>
 	);
 };
