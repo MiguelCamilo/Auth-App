@@ -10,8 +10,6 @@ import { useFormik } from "formik";
 import { Toaster, toast } from "react-hot-toast";
 
 // style imports
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { ScrollReveal } from "reveal-on-scroll-react";
 import { Dialog, Transition } from "@headlessui/react";
 
@@ -59,83 +57,115 @@ const Username = () => {
 					resetForm();
 					setIsOpen(!isOpen);
 				})
-				.catch((error) => console.log(error));		
+				.catch((error) => console.log(error));
 		},
 	});
 
 	return (
 		<>
-			{/* Global Container */}
-			<div className="h-full w-full md:w-[50%] fixed z-[1] top-0 overflow-hidden pt-6 md:pt-20 bg-white">
-				<Toaster
-					position="top-center"
-					reverseOrder={false}
-					toastOptions={{
-						duration: 4000,
-					}}
-				/>
-				{/* Left Side */}
-				<div className="w-full py-1 md:py-8 px-20">
-					<div className="flex justify-center mx-auto">
-						<ScrollReveal.h1
-							delay={0}
-							easing="anticipate"
-							className="text-[48px] font-black text-center text-[#6366f1] tracking-tighter"
-						>
-							Hello Again!
-						</ScrollReveal.h1>
-					</div>
-					<ScrollReveal.h2
-						delay={0.3}
-						easing="anticipate"
-						className="w-[100%] min-w-[245px] text-gray-500 text-md text-center font-normal italic leading-8"
-					>
-						Explore more by connecting with us.
-					</ScrollReveal.h2>
+			<Toaster
+				position="top-center"
+				reverseOrder={false}
+				toastOptions={{
+					duration: 4000,
+				}}
+			/>
+			<section className="bg-white">
+				<div className="lg:grid lg:min-h-screen lg:grid-cols-12">
+					<div className="relative flex h-32 items-end bg-gray-900 lg:col-span-5 lg:h-full xl:col-span-6">
+						<div
+							className="absolute inset-0 h-full w-full object-cover opacity-80"
+							style={{
+								backgroundColor: "#6366f1",
+							}}
+						/>
 
-					<ScrollReveal.div delay={0.6} easing="anticipate">
-						<form onSubmit={userNameFormik.handleSubmit} className="py-1">
-							<div className="profile flex justify-center py-4">
-								<img src={avatar} alt="avatar" className={styles.profile_img} />
+						<div className="hidden lg:relative lg:block lg:p-12">
+							<span className="sr-only">Home</span>
+							{/* <img
+								src="https://flowbite.com/docs/images/logo.svg"
+								className="h-8 sm:h-10 bg-white p-2 rounded-md"
+								alt="Flowbite Logo"
+							/> */}
+
+							<ScrollReveal.h2
+								delay={0.2}
+								easing={"anticipate"}
+								className="mt-6 text-2xl font-bold text-white sm:text-3xl md:text-4xl"
+							>
+								Welcome to Auth App Co.
+							</ScrollReveal.h2>
+
+							<ScrollReveal.p
+								delay={0.4}
+								easing={"anticipate"}
+								className="mt-4 leading-relaxed text-white/90"
+							>
+								Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+								Eligendi nam dolorum aliquam, quibusdam aperiam voluptatum.
+							</ScrollReveal.p>
+						</div>
+					</div>
+
+					<main className="flex justify-center w-full mt-0 md:mt-[15rem] px-8 py-8 sm:px-12 lg:col-span-7 lg:px-16 lg:py-12 xl:col-span-6">
+						<div className="max-w-xl lg:max-w-3xl">
+							<div className="relative -mt-16 block lg:hidden">
+								<a
+									className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-white text-blue-600 sm:h-20 sm:w-20"
+									href="/"
+								>
+									<span className="sr-only">Home</span>
+									<img
+										src="https://flowbite.com/docs/images/logo.svg"
+										className="h-8 sm:h-10"
+										alt="Flowbite Logo"
+									/>
+								</a>
+
+								<h1 className="mt-2 text-2xl font-bold text-gray-900 sm:text-3xl md:text-4xl">
+									Welcome to Auth App Co.
+								</h1>
+
+								<p className="mt-4 leading-relaxed text-gray-500">
+									Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+									Eligendi nam dolorum aliquam, quibusdam aperiam voluptatum.
+								</p>
 							</div>
 
-							<div className="flex flex-col items-center gap-6">
-								<div className="flex w-full relative">
-									<div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-										<FontAwesomeIcon
-											icon={faUser}
-											style={{ color: "#919191" }}
-										/>
-									</div>
+							<h2 className="text-[48px] font-black text-center text-[#6366f1] tracking-tighter">
+								Hello Again!
+							</h2>
+
+							<form onSubmit={userNameFormik.handleSubmit} className="mt-2">
+								<div className="mb-5">
+									<label className="block text-sm font-medium text-gray-700">
+										Username
+									</label>
+
 									<input
-										type="text"
 										// sends the username to the formik initial value
 										{...userNameFormik.getFieldProps("username")}
-										className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full pl-10 py-2.5"
-										placeholder="Username"
+										type="text"
+										className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
 									/>
 								</div>
 								<button
 									type="submit"
-									className="border bg-indigo-500 w-full py-2 rounded-lg text-gray-50 text-xl shadow-sm text-center hover:bg-[#ff6a6a]"
+									className="w-full inline-block shrink-0 rounded-md border border-indigo-600 bg-indigo-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring active:text-blue-500"
 								>
 									Continue
 								</button>
-							</div>
-						</form>
+							</form>
 
-						<div className="flex relative flex-row w-full justify-center mt-4">
 							<Link to="/register">
-								<span className="text-xs text-center uppercase text-gray-400">
+								<div className="flex flex-row justify-center text-sm text-gray-500 mt-5">
 									Don't have an account?
-								</span>{" "}
-								<span className="text-xs text-center uppercase text-indigo-500 hover:text-[#ff6a6a]">
-									Register
-								</span>
+									<div className="text-gray-700 ml-1 underline">Register</div>
+								</div>
 							</Link>
 
 							{/* FEEDBACK MODAL */}
-							<div className="flex flex-col space-y-2 absolute top-10 items-center justify-center">
+							<div className="flex flex-col space-y-2 absolute bottom-[3rem] sm:bottom-[12rem] right-[7.5rem] sm:right-[19rem] items-center justify-center">
 								<label
 									htmlFor="button"
 									className="text-xs text-center uppercase text-gray-400"
@@ -257,18 +287,9 @@ const Username = () => {
 								</Dialog>
 							</Transition>
 						</div>
-					</ScrollReveal.div>
+					</main>
 				</div>
-				{/* Right Side */}
-				<div className="h-full w-[50%] fixed -z-[1] top-0 overflow-hidden right-0">
-					<div
-						className="w-full h-full gradient-bg hidden md:block bg-cover"
-						style={{
-							backgroundColor: "#6366f1",
-						}}
-					/>
-				</div>
-			</div>
+			</section>
 		</>
 	);
 };
