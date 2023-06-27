@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 import toast, { Toaster } from "react-hot-toast";
+import { Avatar } from "flowbite-react";
 import { useFormik } from "formik";
 import { ScrollReveal } from "reveal-on-scroll-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -127,6 +128,11 @@ const Password = () => {
 									one seamless and organized place.
 								</p>
 							</div>
+
+							<Avatar 
+								img={apiData?.profile}
+								size="lg"								
+							/>
 
 							<h2 className="text-[48px] font-sans font-bold text-center text-slate-800 tracking-wide">
 								Welcome back, {apiData?.username}!

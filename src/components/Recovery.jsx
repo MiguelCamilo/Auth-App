@@ -14,24 +14,24 @@ const Recovery = () => {
 
 	const navigate = useNavigate();
 
-	useEffect(() => {
-		generateOTP(username)
-			.then((OTP) => {
-				// console.log(OTP);
-				if (OTP) return toast.success("OTP has been sent to your email.", {
-					style: {
-						border: "2px solid green",
-						padding: "16px",
-						color: "green",
-						background: "#f4f5f6"
-					},
-				});
-				return toast.error("Unable to generate OTP.");
-			})
-			.catch((error) => {
-				console.log(error);
-			});
-	}, [username]);
+	// useEffect(() => {
+	// 	generateOTP(username)
+	// 		.then((OTP) => {
+	// 			// console.log(OTP);
+	// 			if (OTP) return toast.success("OTP has been sent to your email.", {
+	// 				style: {
+	// 					border: "2px solid green",
+	// 					padding: "16px",
+	// 					color: "green",
+	// 					background: "#f4f5f6"
+	// 				},
+	// 			});
+	// 			return toast.error("Unable to generate OTP.");
+	// 		})
+	// 		.catch((error) => {
+	// 			console.log(error);
+	// 		});
+	// }, [username]);
 
 	const handleSubmit = async (e) => {
 		try {
@@ -42,9 +42,8 @@ const Recovery = () => {
 				toast.success("OTP Verification Succesful.");
 				return navigate("/reset");
 			}
-		} catch(error) {
+		} catch (error) {
 			return toast.error("Invalid OTP try again.");
-			
 		}
 	};
 
@@ -59,93 +58,112 @@ const Recovery = () => {
 	};
 
 	return (
-		<>
-			{/* Global Container */}
-			<div className="h-full w-full md:w-[50%] fixed z-[1] top-0 overflow-hidden pt-[5rem] md:pt-[10rem] bg-white">
-				<Toaster
-					position="top-center"
-					reverseOrder={false}
-					toastOptions={{
-						duration: 6000,						
-					}}
-				/>
-				{/* Left Side */}
-				<div className="w-full py-8 px-20">
-					<div className="flex justify-center mx-auto">
-						<ScrollReveal.h1
-							delay={0}
-							easing="anticipate"
-							className="text-[48px] font-black text-center text-[#6366f1] tracking-tighter"
-						>
-							OTP Recover Password
-						</ScrollReveal.h1>
-					</div>
-					<ScrollReveal.h2
-						delay={0.3}
-						easing="anticipate"
-						className="w-[100%] min-w-[250px] md:min-w-[300px] text-gray-500 text-md text-center font-normal italic leading-8"
-					>
-						<FontAwesomeIcon icon={faUnlock} style={{ color: "#919191" }} />{" "}
+		<div>
+			{/*
+  Heads up! 👋
+
+  Plugins:
+    - @tailwindcss/forms
+*/}
+
+			<div className="flex flex-col justify-center items-center px-4 pb-10 pt-[15rem] sm:px-6 lg:px-8">
+				<div className="mx-auto max-w-lg text-center">
+					<h1 className="text-2xl font-bold sm:text-3xl">
+						OTP Recover Password
+					</h1>
+
+					<p className="mt-4 text-gray-500">
 						Enter OTP CODE sent to your email.
-					</ScrollReveal.h2>
+					</p>
+				</div>
 
-					<ScrollReveal.div delay={0.6} easing="anticipate">
-						<form onSubmit={handleSubmit} className="py-1">
-							<div className="flex flex-col items-center gap-6">
-								<div className="flex w-full relative">
-									{/* inputs start */}
-									<div className="flex flex-row items-center justify-between mx-auto w-full max-w-xs">
-										<input										
-										onChange={e => setOTP(e.target.value)}
-										type="text"
-										maxLength={4}
-										inputMode="numeric"
-										autoComplete="one-time-code"
-										placeholder="OTP"
-										className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full pl-10 py-2.5"
-									/>
-									</div>
+				<form action="" className="flex flex-col w-1/2 space-y-5">
+					<div>
+						<label htmlFor="email" className="sr-only">
+							Email
+						</label>
 
-									
-								</div>
-								<button
-									type="submit"
-									className="border bg-indigo-500 w-full py-2 rounded-lg text-gray-50 text-md shadow-sm text-center hover:bg-[#ff6a6a]"
+						<div className="relative">
+							<input
+								type="email"
+								className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+								placeholder="Enter email"
+							/>
+
+							<span className="absolute inset-y-0 end-0 grid place-content-center px-4">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									className="h-4 w-4 text-gray-400"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke="currentColor"
 								>
-									Recover
-								</button>
-							</div>
-						</form>
-
-						<div className="flex flex-col items-center justify-between mt-4">
-							<span className="w-1/5 md:w-1/4" />
-							<span className="text-xs text-center uppercase text-gray-400">
-								Didn't get OTP?
+									<path
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										strokeWidth="2"
+										d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
+									/>
+								</svg>
 							</span>
-							<button
-								onClick={handleResendOTP}
-								type="submit"
-								className="text-xs text-center uppercase text-blue-500 hover:text-red-600"
-							>
-								Resend
-							</button>
-							<span className="w-1/5 md:w-1/4" />
 						</div>
-					</ScrollReveal.div>
-				</div>
-				{/* Right Side */}
+					</div>
 
-				{/* ADD RECOVERY IMAGE HERE  */}
-				<div className="h-full w-[50%] fixed -z-[1] top-0 overflow-hidden right-0">
-					<div
-						className="w-full h-full gradient-bg hidden md:block bg-cover"
-						style={{
-							backgroundColor: "#6366f1",
-						}}
-					/>
-				</div>
+					<div>
+						<label htmlFor="password" className="sr-only">
+							Password
+						</label>
+
+						<div className="relative">
+							<input
+								type="password"
+								className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+								placeholder="Enter password"
+							/>
+
+							<span className="absolute inset-y-0 end-0 grid place-content-center px-4">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									className="h-4 w-4 text-gray-400"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke="currentColor"
+								>
+									<path
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										strokeWidth="2"
+										d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+									/>
+									<path
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										strokeWidth="2"
+										d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+									/>
+								</svg>
+							</span>
+						</div>
+					</div>
+
+					<div className="flex items-center justify-between">
+						<p className="text-sm text-gray-500">
+							No account?
+							<a className="underline" href="">
+								Sign up
+							</a>
+						</p>
+
+						<button
+							type="submit"
+							className="inline-block rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white"
+						>
+							Sign in
+						</button>
+					</div>
+				</form>
 			</div>
-		</>
+		</div>
 	);
 };
 
