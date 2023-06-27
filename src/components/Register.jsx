@@ -1,6 +1,5 @@
 // custom imports
 import avatar from "../assets/profile.png";
-import styles from "../styles/Username.module.css";
 import convertToBase64 from "../helper/convert";
 import { registerValidation } from "../helper/validate";
 import { registerUser } from "../helper/axios";
@@ -14,11 +13,11 @@ import { useNavigate } from "react-router-dom";
 // UI imports
 import toast, { Toaster } from "react-hot-toast";
 import { ScrollReveal } from "reveal-on-scroll-react";
+import { Avatar } from "flowbite-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
-import { faPencil } from "@fortawesome/free-solid-svg-icons";
 
 const Register = () => {
 	const [file, setFile] = useState();
@@ -46,9 +45,11 @@ const Register = () => {
 			});
 			// on success navigate
 			registerPromise
-				.then(() => { navigate("/"); })
+				.then(() => {
+					navigate("/");
+				})
 				.catch((error) => {
-					console.log(error)
+					console.log(error);
 				});
 		},
 	});
@@ -61,149 +62,173 @@ const Register = () => {
 
 	return (
 		<>
-			{/* Global Container */}
-			<div className="h-full w-full md:w-[50%] fixed z-[1] top-0 overflow-hidden pt-6 md:pt-20 bg-white">
-				<Toaster
-					position="top-center"
-					reverseOrder={false}
-					toastOptions={{
-						duration: 2000,
-					}}
-				/>
-				{/* Left Side */}
-				<div className="w-full py-8 px-20">
-					<div className="flex justify-center mx-auto">
-						<ScrollReveal.h1
-							delay={0}
-							easing="anticipate"
-							className="text-[48px] font-black text-center text-[#6366f1] tracking-tighter"
-						>
-							Register
-						</ScrollReveal.h1>
-					</div>
-					<ScrollReveal.h2
-						delay={0.3}
-						easing="anticipate"
-						className="w-[100%] min-w-[245px] text-gray-500 text-md text-center font-normal italic leading-8"
-					>
-						Let's create an account!
-					</ScrollReveal.h2>
+			<Toaster
+				position="top-center"
+				reverseOrder={false}
+				toastOptions={{
+					duration: 4000,
+				}}
+			/>
+			<section className="bg-white">
+				<div className="lg:grid lg:min-h-screen lg:grid-cols-12">
+					<aside className="relative block h-16 lg:order-last lg:col-span-5 lg:h-full xl:col-span-6">
+						<img
+							alt="Pattern"
+							src="https://images.unsplash.com/photo-1546349851-64285be8e9fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8cGF0dGVybnN8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=60"
+							className="absolute inset-0 h-full w-full object-cover"
+						/>
+					</aside>
 
-					<ScrollReveal.div delay={0.6} easing="anticipate">
-						<form onSubmit={formik.handleSubmit} className="py-1">
-							<div className="profile flex justify-center py-4">
-								<label htmlFor="profile" className="relative">
+					<main className="flex items-center justify-center px-8 py-8 sm:px-12 lg:col-span-7 lg:px-16 lg:py-12 xl:col-span-6">
+						<div className="max-w-xl lg:max-w-3xl">
+							<span className="sr-only">Home</span>
+							<ScrollReveal.div delay={0.2} easing={"anticipate"}>
+								<img
+									src="https://flowbite.com/docs/images/logo.svg"
+									className="h-8 mr-3"
+									alt="Flowbite Logo"
+								/>
+							</ScrollReveal.div>
 
-									<div className="absolute bottom-0 right-2">
-										<FontAwesomeIcon
-											icon={faPencil}
-											style={{ color: "white" }}
-											className="bg-[#6366f1] p-1.5 rounded-full cursor-pointer"
-										/>
-									</div>
-									{/* to hide the defautl input style look at css file */}
-									<img
-										// conditional render depending on what data exist
-										src={file || avatar}
-										alt="avatar"
-										className={styles.profile_img}
-									/>
-									<input
-										onChange={onUpload}
-										type="file"
-										id="profile"
-										name="profile"
-										// allows for only image files upload
-										accept="image/*"
-									/>
-								</label>
-							</div>
+							<ScrollReveal.h1
+								delay={0.2}
+								easing={"anticipate"}
+								className="mt-6 text-2xl font-bold text-gray-900 sm:text-3xl md:text-4xl"
+							>
+								Welcome to Auth App Co.
+							</ScrollReveal.h1>
 
-							<div className="flex flex-col items-center gap-6">
-								{/* username */}
-								<div className="flex w-full relative">
-									<div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-										<FontAwesomeIcon
-											icon={faUser}
-											style={{ color: "#919191" }}
-										/>
-									</div>
-									<input
-										type="text"
-										// sends the username to the formik initial value
-										{...formik.getFieldProps("username")}
-										className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full pl-10 py-2.5"
-										placeholder="Username"
-									/>
-								</div>
+							<ScrollReveal.p
+								delay={0.4}
+								easing={"anticipate"}
+								className="mt-4 mb-6 leading-relaxed text-gray-500"
+							>
+								We are glad to have you, let's create an account and get you
+								connected with the rest of the community!
+							</ScrollReveal.p>
 
-								{/* email */}
-								<div className="flex w-full relative">
-									<div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-										<FontAwesomeIcon
-											icon={faEnvelope}
-											style={{ color: "#919191" }}
-										/>
-									</div>
-									<input
-										type="email"
-										// sends the username to the formik initial value
-										{...formik.getFieldProps("email")}
-										className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full pl-10 py-2.5"
-										placeholder="Email"
-									/>
-								</div>
-
-								{/* password */}
-								<div className="flex w-full relative">
-									<div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-										<FontAwesomeIcon
-											icon={faLock}
-											style={{ color: "#919191" }}
-										/>
-									</div>
-									<input
-										type="password"
-										// sends the username to the formik initial value
-										{...formik.getFieldProps("password")}
-										className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full pl-10 py-2.5"
-										placeholder="Password"
-									/>
-								</div>
-
-								<button
-									type="submit"
-									className="border bg-indigo-500 w-full py-2 rounded-lg text-gray-50 text-md shadow-xl text-center hover:bg-[#ff6a6a]"
+							<ScrollReveal.div delay={0.6} easing="anticipate">
+								<form
+									onSubmit={formik.handleSubmit}
+									className="mt-8 grid grid-cols-6 gap-6"
 								>
-									Create Account
-								</button>
-							</div>
-						</form>
+									<div className="col-span-6">
+										<label
+											className="block my-2 text-sm font-medium text-gray-900"
+											htmlFor="file_input"
+										>
+											Upload a Profile Image
+										</label>
+										<input
+											className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none "
+											onChange={onUpload}
+											type="file"
+											id="profile"
+											name="profile"
+											accept="image/*"
+										/>
+										<p
+											className="mt-1 text-sm text-gray-500"
+											id="file_input_help"
+										>
+											PNG or JPG RECOMMENDED (MIN. 600x600px).
+										</p>
+									</div>
 
-						<div className="flex items-center justify-center mt-4">
-							{/* <span className="w-1/5 md:w-1/4" /> */}
-							<Link to="/">
-								<span className="text-xs text-center uppercase text-gray-400">
+									<div className="col-span-6 sm:col-span-3">
+										<label
+											htmlFor="FirstName"
+											className="block text-sm font-medium text-gray-700 relative"
+										>
+											Username
+										</label>
+										<div className="absolute flex items-center px-3 mt-4">
+											<FontAwesomeIcon
+												icon={faUser}
+												style={{ color: "#919191" }}
+											/>
+										</div>
+
+										<input
+											{...formik.getFieldProps("username")}
+											type="text"
+											className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-md hover:shadow-lg pl-10 py-2.5"
+										/>
+									</div>
+
+									<div className="col-span-6 sm:col-span-3">
+										<label
+											htmlFor="Email"
+											className="block text-sm font-medium text-gray-700 relative"
+										>
+											Email
+										</label>
+										<div className="absolute flex items-center px-3 mt-4">
+											<FontAwesomeIcon
+												icon={faEnvelope}
+												style={{ color: "#919191" }}
+											/>
+										</div>
+
+										<input
+											{...formik.getFieldProps("email")}
+											type="email"
+											id="Email"
+											name="email"
+											className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-md hover:shadow-lg pl-10 py-2.5"
+										/>
+									</div>
+
+									<div className="col-span-6">
+										<label
+											htmlFor="Password"
+											className="block text-sm font-medium text-gray-700 relative"
+										>
+											Password
+										</label>
+										<div className="absolute flex items-center px-3 mt-4">
+											<FontAwesomeIcon
+												icon={faLock}
+												style={{ color: "#919191" }}
+											/>
+										</div>
+
+										<input
+											{...formik.getFieldProps("password")}
+											type="password"
+											id="Password"
+											name="password"
+											className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-md hover:shadow-lg pl-10 py-2.5"
+										/>
+									</div>
+
+									<div className="col-span-6">
+										<button type="submit" className="inline-block w-full rounded-md border border-indigo-600 bg-indigo-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring active:text-indigo-500">
+											Create an account
+										</button>
+									</div>
+								</form>
+
+								<div className="mt-6 border-t border-gray-300" />
+							</ScrollReveal.div>
+
+							<ScrollReveal.div
+								delay={0.8}
+								easing={"anticipate"}
+								className="mt-5 col-span-6 flex flex-col sm:items-center sm:gap-4"
+							>
+								<p className="mt-4 text-sm text-center text-gray-500 sm:mt-0">
 									Already have an account?
-								</span>{" "}
-								<span className="text-xs text-center uppercase text-blue-500 hover:text-[#ff6a6a]">
-									Login
-								</span>
-							</Link>
-							{/* <span className="w-1/5 md:w-1/4" /> */}
+									<Link to={"/"} className="text-gray-700 underline ml-2">
+										Log in
+									</Link>
+									.
+								</p>
+							</ScrollReveal.div>
 						</div>
-					</ScrollReveal.div>
+					</main>
 				</div>
-				{/* Right Side */}
-				<div className="h-full w-[50%] fixed -z-[1] top-0 overflow-hidden right-0">
-					<div
-						className="w-full h-full gradient-bg hidden md:block bg-cover"
-						style={{
-							backgroundColor: "#6366f1",
-						}}
-					/>
-				</div>
-			</div>
+			</section>
 		</>
 	);
 };

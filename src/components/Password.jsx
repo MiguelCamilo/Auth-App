@@ -97,8 +97,8 @@ const Password = () => {
 								easing={"anticipate"}
 								className="mt-4 leading-relaxed text-white/90"
 							>
-								Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-								Eligendi nam dolorum aliquam, quibusdam aperiam voluptatum.
+								Connect, Organize, & Build your community of connections in one
+								seamless and organized place.
 							</ScrollReveal.p>
 						</div>
 					</div>
@@ -123,17 +123,15 @@ const Password = () => {
 								</h1>
 
 								<p className="mt-4 leading-relaxed text-gray-500">
-									Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-									Eligendi nam dolorum aliquam, quibusdam aperiam voluptatum.
+									Connect, Organize, & Build your community of connections in
+									one seamless and organized place.
 								</p>
 							</div>
 
 							<h2 className="text-[48px] font-sans font-bold text-center text-slate-800 tracking-wide">
-								Welcome back, {apiData?.firstName}!
+								Welcome back, {apiData?.username}!
 							</h2>
-							<p className="text-sm font-sans font-normal text-center text-gray-400">
-								
-							</p>
+							<p className="text-sm font-sans font-normal text-center text-gray-400"></p>
 
 							<form onSubmit={formik.handleSubmit} className="mt-2">
 								<div className="mb-5">
@@ -160,8 +158,8 @@ const Password = () => {
 									Login
 								</button>
 							</form>
-							<div class="mt-6 border-t border-gray-300" />
-							<Link to="/register">
+							<div className="mt-6 border-t border-gray-300" />
+							<Link to="/recovery">
 								<div className="flex flex-row justify-center text-sm text-gray-500 mt-5">
 									Forgot Password?
 									<div className="text-gray-700 ml-1 underline">

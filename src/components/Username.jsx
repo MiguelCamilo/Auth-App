@@ -100,8 +100,8 @@ const Username = () => {
 								easing={"anticipate"}
 								className="mt-4 leading-relaxed text-white/90"
 							>
-								Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-								Eligendi nam dolorum aliquam, quibusdam aperiam voluptatum.
+								Connect, Organize, & Build your community of connections in one
+								seamless and organized place.
 							</ScrollReveal.p>
 						</div>
 					</div>
@@ -125,15 +125,15 @@ const Username = () => {
 								</h1>
 
 								<p className="mt-4 leading-relaxed text-gray-500">
-									Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-									Eligendi nam dolorum aliquam, quibusdam aperiam voluptatum.
+									Connect, Organize, & Build your community of connections in
+									one seamless and organized place.
 								</p>
 							</div>
 
-							<h2 className="text-[48px] font-sans font-bold text-center text-slate-800 tracking-wide">
-								Log in to your Account					
+							<h2 className="text-2xl font-bold text-gray-900 sm:text-3xl md:text-4xl">
+								Log in to your Account
 							</h2>
-							<p className="text-sm font-sans font-normal text-center text-gray-400">
+							<p className="leading-relaxed text-gray-500 text-center">
 								Welcome back!
 							</p>
 
@@ -153,7 +153,7 @@ const Username = () => {
 										// sends the username to the formik initial value
 										{...userNameFormik.getFieldProps("username")}
 										type="text"
-										className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm pl-10 py-2.5"
+										className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-md hover:shadow-lg pl-10 py-2.5"
 									/>
 								</div>
 								<button

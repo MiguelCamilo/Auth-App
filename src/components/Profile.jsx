@@ -7,6 +7,7 @@ import { profileValidation } from "../helper/validate";
 import { updateUser } from "../helper/axios";
 
 import { Link } from "react-router-dom";
+import { Avatar } from "flowbite-react";
 import { useFormik } from "formik";
 import { Toaster, toast } from "react-hot-toast";
 import { useState } from "react";
@@ -93,7 +94,10 @@ const Profile = () => {
 							className="absolute top-5 right-5 duration-100 rounded-md text-white p-2"
 							onClick={handleReveal}
 						>
-							<FontAwesomeIcon icon={faEdit} className="text-indigo-500 h-6 w-6 hover:text-[#ff6a6a]"/>
+							<FontAwesomeIcon
+								icon={faEdit}
+								className="text-indigo-500 h-6 w-6 hover:text-[#ff6a6a]"
+							/>
 						</button>
 
 						{/* FIRST ROW CONTAINER */}
@@ -103,13 +107,14 @@ const Profile = () => {
 								easing="anticipate"
 								className="relative"
 							>
-								<label htmlFor="">
+								<label>
 									{/* to hide the defautl input style look at css file */}
-									<img
+									<Avatar
 										// conditional render depending on what data exist
-										src={file || apiData?.profile}
+										img={file || apiData?.profile}
 										alt="avatar"
-										className={styles.profile_img}
+										size="xl"
+										
 									/>
 								</label>
 							</ScrollReveal.div>
@@ -152,6 +157,7 @@ const Profile = () => {
 												id="profile"
 												name="profile"
 												accept="image/*"
+												hidden
 												disabled={reveal ? true : false}
 											/>
 										</label>
@@ -289,12 +295,17 @@ const Profile = () => {
 							</button>
 						</form>
 						<div className="flex flex-row pt-5 font-extrabold">
-							<FontAwesomeIcon icon={faLock} className="text-gray-500 pr-2 pt-1"/>
-							<h4>Password</h4>							
+							<FontAwesomeIcon
+								icon={faLock}
+								className="text-gray-500 pr-2 pt-1"
+							/>
+							<h4>Password</h4>
 						</div>
-							<hr />
+						<hr />
 						<Link to={"/recovery"}>
-							<button className="bg-gray-500 hover:bg-gray-400 duration-150 p-2 mt-5 rounded-md text-white">Reset Password</button>
+							<button className="bg-gray-500 hover:bg-gray-400 duration-150 p-2 mt-5 rounded-md text-white">
+								Reset Password
+							</button>
 						</Link>
 					</div>
 				</div>

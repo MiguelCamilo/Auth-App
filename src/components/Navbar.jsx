@@ -31,7 +31,7 @@ export default function NavbarWithDropdown({ file }) {
 						inline
 						label={
 							<Avatar
-								alt="User settings"
+								alt="User Profile Image"
 								img={file || apiData?.profile}
 								rounded
 								className="border-2 border-indigo-600 rounded-full"
