@@ -1,7 +1,5 @@
 import { usernameValidate } from "../helper/validate";
 import { useAuthStore } from "../config/zustand-store";
-import avatar from "../assets/profile.png";
-import styles from "../styles/Username.module.css";
 
 // react imports
 import { useState, Fragment } from "react";
@@ -12,6 +10,8 @@ import { Toaster, toast } from "react-hot-toast";
 // style imports
 import { ScrollReveal } from "reveal-on-scroll-react";
 import { Dialog, Transition } from "@headlessui/react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 const Username = () => {
 	const [isOpen, setIsOpen] = useState(false);
@@ -73,20 +73,19 @@ const Username = () => {
 			<section className="bg-white">
 				<div className="lg:grid lg:min-h-screen lg:grid-cols-12">
 					<div className="relative flex h-32 items-end bg-gray-900 lg:col-span-5 lg:h-full xl:col-span-6">
-						<div
+						<img
+							alt="Night"
+							src="https://images.unsplash.com/photo-1496115965489-21be7e6e59a0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGNvbm5lY3Rpb258ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=60"
 							className="absolute inset-0 h-full w-full object-cover opacity-80"
-							style={{
-								backgroundColor: "#6366f1",
-							}}
 						/>
 
 						<div className="hidden lg:relative lg:block lg:p-12">
 							<span className="sr-only">Home</span>
-							{/* <img
+							<img
 								src="https://flowbite.com/docs/images/logo.svg"
 								className="h-8 sm:h-10 bg-white p-2 rounded-md"
 								alt="Flowbite Logo"
-							/> */}
+							/>
 
 							<ScrollReveal.h2
 								delay={0.2}
@@ -107,14 +106,13 @@ const Username = () => {
 						</div>
 					</div>
 
-					<main className="flex justify-center w-full mt-0 md:mt-[15rem] px-8 py-8 sm:px-12 lg:col-span-7 lg:px-16 lg:py-12 xl:col-span-6">
-						<div className="max-w-xl lg:max-w-3xl">
+					<main className="flex justify-center w-full lg:mt-[10rem] px-8 py-8 sm:px-12 lg:col-span-7 lg:px-16 lg:py-12 xl:col-span-6">
+						<div className="max-w-xl lg:max-w-3xl space-y-5">
 							<div className="relative -mt-16 block lg:hidden">
 								<a
 									className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-white text-blue-600 sm:h-20 sm:w-20"
 									href="/"
 								>
-									<span className="sr-only">Home</span>
 									<img
 										src="https://flowbite.com/docs/images/logo.svg"
 										className="h-8 sm:h-10"
@@ -132,21 +130,30 @@ const Username = () => {
 								</p>
 							</div>
 
-							<h2 className="text-[48px] font-black text-center text-[#6366f1] tracking-tighter">
-								Hello Again!
+							<h2 className="text-[48px] font-sans font-bold text-center text-slate-800 tracking-wide">
+								Log in to your Account					
 							</h2>
+							<p className="text-sm font-sans font-normal text-center text-gray-400">
+								Welcome back!
+							</p>
 
 							<form onSubmit={userNameFormik.handleSubmit} className="mt-2">
 								<div className="mb-5">
-									<label className="block text-sm font-medium text-gray-700">
+									<label className="block text-sm font-medium text-gray-700 relative">
 										Username
 									</label>
+									<div className="absolute flex items-center px-3 mt-4">
+										<FontAwesomeIcon
+											icon={faUser}
+											style={{ color: "#919191" }}
+										/>
+									</div>
 
 									<input
 										// sends the username to the formik initial value
 										{...userNameFormik.getFieldProps("username")}
 										type="text"
-										className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
+										className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm pl-10 py-2.5"
 									/>
 								</div>
 								<button
@@ -157,6 +164,8 @@ const Username = () => {
 								</button>
 							</form>
 
+							<div className="mt-3 border-t border-gray-300" />
+
 							<Link to="/register">
 								<div className="flex flex-row justify-center text-sm text-gray-500 mt-5">
 									Don't have an account?
@@ -165,7 +174,7 @@ const Username = () => {
 							</Link>
 
 							{/* FEEDBACK MODAL */}
-							<div className="flex flex-col space-y-2 absolute bottom-[3rem] sm:bottom-[12rem] right-[7.5rem] sm:right-[19rem] items-center justify-center">
+							<div className="flex flex-col space-y-2 items-center justify-center">
 								<label
 									htmlFor="button"
 									className="text-xs text-center uppercase text-gray-400"
