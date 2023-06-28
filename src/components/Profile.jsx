@@ -89,9 +89,9 @@ const Profile = () => {
 				</ScrollReveal.h1>
 				<hr />
 				<div className="flex pt-4">
-					<div className="flex flex-col justify-start h-[50rem] p-10 w-full bg-white rounded relative">
+					<div className="flex flex-col justify-start h-[50rem] p-10 bg-white w-full rounded relative">
 						<button
-							className="absolute top-2 right-5 duration-100 rounded-md text-white p-2"
+							className="absolute top-[10rem] sm:top-2 right-[4.5rem] sm:right-5 duration-100 rounded-md text-white p-2 w-[35%]"
 							onClick={handleReveal}
 						>
 							<h2 className="font-bold text-md text-white bg-indigo-500 rounded-lg p-2">
@@ -143,7 +143,7 @@ const Profile = () => {
 											<div
 												className={`${
 													reveal
-														? "text-center shrink-0 ml-9 p-2 mt-2 bg-gray-500 hover:bg-gray-600 rounded-2xl text-white text-sm w-[40%] md:w-[30%] lg:w-[20%] cursor-not-allowed"
+														? "text-center shrink-0 ml-9 p-2 mt-2 bg-gray-500 hover:bg-gray-600 rounded-2xl text-white text-sm w-[60%] md:w-[30%] lg:w-[20%] cursor-not-allowed"
 														: "text-center shrink-0 ml-9 p-2 mt-2 bg-indigo-500 hover:bg-[#ff6a6a] rounded-2xl text-white text-sm w-[40%] md:w-[30%] lg:w-[20%] cursor-pointer"
 												}`}
 											>

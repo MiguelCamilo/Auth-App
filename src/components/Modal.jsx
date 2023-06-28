@@ -42,7 +42,7 @@ const Modal = ({ isOpen, setIsOpen }) => {
 			<Transition appear show={isOpen} as={Fragment}>
 				<Dialog
 					as="div"
-					className="absolute top-[12rem] md:top-[15rem] bottom-0 left-0 right-0 z-10"
+					className="absolute top-[12rem] md:top-[15rem] bottom-0 left-0 right-0 z-20"
 					onClose={() => {
 						setIsOpen(!isOpen);
 					}}

@@ -12,6 +12,7 @@ import { faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 
 export default function NavbarWithDropdown({ file }) {
 	const [isOpen, setIsOpen] = useState(false);
+	const [dropdownOpen, setDropdownOpen] = useState(false);
 	const [{ apiData }] = useFetch();
 
 	const navigate = useNavigate();
@@ -44,6 +45,8 @@ export default function NavbarWithDropdown({ file }) {
 				<div className="flex text-white">
 					<Dropdown
 						inline
+						show={dropdownOpen}
+						onToggle={() => setDropdownOpen(!dropdownOpen)}						
 						label={
 							<Avatar
 								alt="User Profile Image"
@@ -112,7 +115,7 @@ export default function NavbarWithDropdown({ file }) {
 
 						<Dropdown.Item
 							onClick={() => {
-								navigate("/profile");
+								navigate("/profile");								
 							}}
 						>
 							<FontAwesomeIcon icon={faGear} className="mr-1" />
@@ -123,7 +126,7 @@ export default function NavbarWithDropdown({ file }) {
 
 						<Dropdown.Item
 							onClick={() => {
-								setIsOpen(!isOpen);
+								setIsOpen(!isOpen);				
 							}}
 						>
 							<FontAwesomeIcon icon={faComment} className="mr-1" />
