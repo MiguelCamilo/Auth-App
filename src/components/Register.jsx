@@ -1,5 +1,4 @@
 // custom imports
-import avatar from "../assets/profile.png";
 import convertToBase64 from "../helper/convert";
 import { registerValidation } from "../helper/validate";
 import { registerUser } from "../helper/axios";
@@ -13,7 +12,6 @@ import { useNavigate } from "react-router-dom";
 // UI imports
 import toast, { Toaster } from "react-hot-toast";
 import { ScrollReveal } from "reveal-on-scroll-react";
-import { Avatar } from "flowbite-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
@@ -26,6 +24,8 @@ const Register = () => {
 	const formik = useFormik({
 		initialValues: {
 			// empty string for initial value
+			firstName: "",
+			lastName: "",
 			username: "",
 			email: "",
 			password: "",
@@ -51,6 +51,7 @@ const Register = () => {
 				.catch((error) => {
 					console.log(error);
 				});
+				// console.log(values)
 		},
 	});
 
@@ -107,7 +108,7 @@ const Register = () => {
 								connected with the rest of the community!
 							</ScrollReveal.p>
 
-							<ScrollReveal.div delay={0.6} easing="anticipate">
+							<div>
 								<form
 									onSubmit={formik.handleSubmit}
 									className="mt-8 grid grid-cols-6 gap-6"
@@ -136,8 +137,49 @@ const Register = () => {
 									</div>
 
 									<div className="col-span-6 sm:col-span-3">
-										<label
-											htmlFor="FirstName"
+										<label											
+											className="block text-sm font-medium text-gray-700 relative"
+										>
+											First Name
+										</label>
+										<div className="absolute flex items-center px-3 mt-4">
+											<FontAwesomeIcon
+												icon={faUser}
+												style={{ color: "#919191" }}
+											/>
+										</div>
+
+										<input
+											{...formik.getFieldProps("firstName")}
+											type="text"
+											className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-md hover:shadow-lg pl-10 py-2.5"
+										/>
+									</div>
+
+									<div className="col-span-6 sm:col-span-3">
+										<label											
+											className="block text-sm font-medium text-gray-700 relative"
+										>
+											Last Name
+										</label>
+										<div className="absolute flex items-center px-3 mt-4">
+											<FontAwesomeIcon
+												icon={faUser}
+												style={{ color: "#919191" }}
+											/>
+										</div>
+
+										<input
+											{...formik.getFieldProps("lastName")}
+											type="text"
+											className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-md hover:shadow-lg pl-10 py-2.5"
+										/>
+									</div>
+
+									
+
+									<div className="col-span-6">
+										<label											
 											className="block text-sm font-medium text-gray-700 relative"
 										>
 											Username
@@ -156,7 +198,7 @@ const Register = () => {
 										/>
 									</div>
 
-									<div className="col-span-6 sm:col-span-3">
+									<div className="col-span-6">
 										<label
 											htmlFor="Email"
 											className="block text-sm font-medium text-gray-700 relative"
@@ -210,11 +252,9 @@ const Register = () => {
 								</form>
 
 								<div className="mt-6 border-t border-gray-300" />
-							</ScrollReveal.div>
+							</div>
 
-							<ScrollReveal.div
-								delay={0.8}
-								easing={"anticipate"}
+							<div
 								className="mt-5 col-span-6 flex flex-col sm:items-center sm:gap-4"
 							>
 								<p className="mt-4 text-sm text-center text-gray-500 sm:mt-0">
@@ -224,7 +264,7 @@ const Register = () => {
 									</Link>
 									.
 								</p>
-							</ScrollReveal.div>
+							</div>
 						</div>
 					</main>
 				</div>

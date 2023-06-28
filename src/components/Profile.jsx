@@ -91,13 +91,12 @@ const Profile = () => {
 				<div className="flex pt-4">
 					<div className="flex flex-col justify-start h-[50rem] p-10 w-full bg-white rounded relative">
 						<button
-							className="absolute top-5 right-5 duration-100 rounded-md text-white p-2"
+							className="absolute top-2 right-5 duration-100 rounded-md text-white p-2"
 							onClick={handleReveal}
 						>
-							<FontAwesomeIcon
-								icon={faEdit}
-								className="text-indigo-500 h-6 w-6 hover:text-[#ff6a6a]"
-							/>
+							<h2 className="font-bold text-md text-white bg-indigo-500 rounded-lg p-2">
+								Update
+							</h2>
 						</button>
 
 						{/* FIRST ROW CONTAINER */}
@@ -114,7 +113,6 @@ const Profile = () => {
 										img={file || apiData?.profile}
 										alt="avatar"
 										size="xl"
-										
 									/>
 								</label>
 							</ScrollReveal.div>
@@ -174,10 +172,7 @@ const Profile = () => {
 						<form onSubmit={formik.handleSubmit}>
 							<div className="mt-8 grid grid-cols-6 gap-6 mx-5">
 								<div className="col-span-6 sm:col-span-3 relative">
-									<label
-										htmlFor="FirstName"
-										className="block text-sm font-medium text-gray-700"
-									>
+									<label className="block text-sm font-medium text-gray-700">
 										First Name
 									</label>
 									<div className="absolute inset-y-0 left-0 top-6 flex items-center pl-3 pointer-events-none">
@@ -193,18 +188,13 @@ const Profile = () => {
 									<input
 										{...formik.getFieldProps("firstName")}
 										type="text"
-										id="FirstName"
-										name="first_name"
 										className="mt-1 w-full rounded-md p-2 border border-gray-200 bg-white text-sm text-gray-700 shadow-sm cursor-pointer pl-10"
 										disabled={reveal ? true : false}
 									/>
 								</div>
 
 								<div className="col-span-6 sm:col-span-3 relative">
-									<label
-										htmlFor="LastName"
-										className="block text-sm font-medium text-gray-700"
-									>
+									<label className="block text-sm font-medium text-gray-700">
 										Last Name
 									</label>
 									<div className="absolute inset-y-0 left-0 top-6 flex items-center pl-3 pointer-events-none">
@@ -221,18 +211,13 @@ const Profile = () => {
 									<input
 										{...formik.getFieldProps("lastName")}
 										type="text"
-										id="LastName"
-										name="last_name"
 										className="mt-1 w-full rounded-md p-2 border border-gray-200 bg-white text-sm text-gray-700 shadow-sm cursor-pointer pl-10"
 										disabled={reveal ? true : false}
 									/>
 								</div>
 
 								<div className="col-span-6 sm:col-span-3 relative">
-									<label
-										htmlFor="Email"
-										className="block text-sm font-medium text-gray-700"
-									>
+									<label className="block text-sm font-medium text-gray-700">
 										Email
 									</label>
 									<div className="absolute inset-y-0 left-0 top-6 flex items-center pl-3 pointer-events-none">
@@ -249,18 +234,13 @@ const Profile = () => {
 									<input
 										type={`${reveal ? "password" : "email"}`}
 										{...formik.getFieldProps("email")}
-										id="Email"
-										name="email"
 										className="mt-1 w-full rounded-md p-2 border border-gray-200 bg-white text-sm text-gray-700 shadow-sm cursor-pointer pl-10"
 										disabled={reveal ? true : false}
 									/>
 								</div>
 
 								<div className="col-span-6 sm:col-span-3 relative">
-									<label
-										htmlFor="Phonenumber"
-										className="block text-sm font-medium text-gray-700"
-									>
+									<label className="block text-sm font-medium text-gray-700">
 										Phone Number
 									</label>
 									<div className="absolute inset-y-0 left-0 top-6 flex items-center pl-3 pointer-events-none">
@@ -274,12 +254,11 @@ const Profile = () => {
 										/>
 									</div>
 									<input
-										type={`${reveal ? "password" : "tel"}`}
 										{...formik.getFieldProps("phoneNumber")}
-										id="Phonenumber"
-										name="phonenumber"
-										className="mt-1 w-full rounded-md p-2 border border-gray-200 bg-white text-sm text-gray-700 shadow-sm cursor-pointer pl-10"
+										type={`${reveal ? "password" : "tel"}`}
 										disabled={reveal ? true : false}
+										maxLength={10}
+										className="mt-1 w-full rounded-md p-2 border border-gray-200 bg-white text-sm text-gray-700 shadow-sm cursor-pointer pl-10"
 									/>
 								</div>
 							</div>

@@ -5,7 +5,9 @@ import toast from 'react-hot-toast'
 // verify username
 function usernameVerify(error = {}, values){
     if(!values.username){
-        error.username = toast.error("Username Required!");
+        error.username = toast.error("Username Required!", {
+            id: 'username',
+        });
         
     }else if(values.username.includes(" ")){
         error.username = toast.error("Invalid Username!")
@@ -38,16 +40,24 @@ function passwordVerify(errors = {}, values) {
     const specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
 
     if(!values.password === "") {
-        errors.password = toast.error("Password Required!")
+        errors.password = toast.error("Password Required!", {
+          id: 'required-password'  
+        })
 
     } else if (values.password.includes(" ")) {
-        errors.password = toast.error("Wrong Password!")
+        errors.password = toast.error("Wrong Password!", {
+            id: 'incorrect-password'
+        })
 
     } else if(values.password.length < 4) {
-        errors.password = toast.error("Password must be more than 4 characters!")
+        errors.password = toast.error("Password must be more than 4 characters!", {
+            id: 'password-length'
+        })
 
     } else if (!specialChars.test(values.password)) {
-        errors.password = toast.error("Password must have special characters!")
+        errors.password = toast.error("Password must have special characters!", {
+            id: 'special-chars-password'
+        })
     }
 
     return errors
@@ -75,13 +85,17 @@ export const resetPasswordValidation = async (values) => {
 // verify email
 function emailVerify(error = {}, values) {
     if(!values.email) {
-        error.email = toast.error("Email is required!")
+        error.email = toast.error("Email is required!", {
+            id: 'required-email'
+        })
 
     } else if (values.email.includes(" ")) {
-        error.email = toast.error("Invalid email, try again.")
+        error.email = toast.error("Invalid email, try again.", {
+            id: 'invalid-email'
+        })
 
     } else if(!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)){
-        error.email = toast.error("Invalid email address...!")
+        error.email = toast.error("Invalid email address!")
     }
 
     return error
@@ -99,7 +113,9 @@ export const registerValidation = async (values) => {
 // validate profile data
 export const profileValidation = async (values) => {
     if(!values) {
-        toast.error("Please fill out all necessary fields.")
+        toast.error("Please fill out all necessary fields.", {
+            id: 'fields-required-profile'
+        })
     }
     
     const errors = emailVerify({}, values)
