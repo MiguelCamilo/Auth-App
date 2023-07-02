@@ -1,4 +1,3 @@
-import styles from "../styles/Username.module.css";
 import LoadingAnim from "./LoadingAnim";
 import Navbar from "./Navbar";
 import convertToBase64 from "../helper/convert";
@@ -16,7 +15,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { faPhone } from "@fortawesome/free-solid-svg-icons";
-import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
 
 const Profile = () => {
@@ -77,7 +75,10 @@ const Profile = () => {
 					duration: 2000,
 				}}
 			/>
+
+			{/* NAVBAR components */}
 			<Navbar file={file} />
+
 			<div className="max-h-[2520px] max-w-[2520px] mx-auto xl:px-28 md:px-20 sm:px-2 px-4 bg-gray-100">
 				{/* container */}
 				<ScrollReveal.h1

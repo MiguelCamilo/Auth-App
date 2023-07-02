@@ -30,7 +30,7 @@ export const getUser = async ({ username }) => {
     }
 }
 
-// get username fromt token func
+// get username from token func
 export const getUserName = async () => {
     const token = localStorage.getItem("token")
     if(!token) {
@@ -39,6 +39,16 @@ export const getUserName = async () => {
 
     let decode = jwt_decode(token)
     return decode
+}
+
+export const getAllUsers = async () => {
+    try {
+        const { data } = await axios.get("/api/getallusers")
+        return Promise.resolve({ data })
+    } catch (error) {
+        // console.log(error)
+        return Promise.reject({ error })
+    }
 }
 
 

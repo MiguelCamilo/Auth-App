@@ -6,6 +6,7 @@ import Password from './components/Password'
 import Recovery from './components/Recovery'
 import Reset from './components/Reset'
 import Profile from './components/Profile'
+import Dashboard from './components/Dashboard'
 import PageNotFound from './components/PageNotFound'
 
 import './App.css'
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
   {
     path: '/profile',
     element: <AuthorizedUser> <Profile /> </AuthorizedUser>
+  },
+  {
+    path: '/dashboard',
+    element: <AuthorizedUser> <Dashboard /> </AuthorizedUser>
   },
   {
     path: '*',
