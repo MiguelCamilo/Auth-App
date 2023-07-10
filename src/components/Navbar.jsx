@@ -52,7 +52,7 @@ const Navbar = ({ file }) => {
 								alt="User Profile Image"
 								img={file || apiData?.profile}
 								rounded
-								className="border-2 border-indigo-600 rounded-full"
+								className="border-2 border-indigo-600 hover:border-indigo-500 duration-150 rounded-full"
 							/>
 						}
 					>

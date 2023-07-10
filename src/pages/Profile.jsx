@@ -30,6 +30,7 @@ const Profile = () => {
 			lastName: apiData?.lastName || "",
 			email: apiData?.email || "",
 			phoneNumber: apiData?.phoneNumber || "",
+			about: apiData?.about || "",
 		},
 		validate: profileValidation,
 		enableReinitialize: true,
@@ -144,11 +145,11 @@ const Profile = () => {
 											<div
 												className={`${
 													reveal
-														? "text-center shrink-0 ml-9 p-2 mt-2 bg-gray-500 hover:bg-gray-600 rounded-2xl text-white text-sm w-[60%] md:w-[30%] lg:w-[20%] cursor-not-allowed"
-														: "text-center shrink-0 ml-9 p-2 mt-2 bg-indigo-500 hover:bg-[#ff6a6a] rounded-2xl text-white text-sm w-[40%] md:w-[30%] lg:w-[20%] cursor-pointer"
+														? "text-center shrink-0 ml-9 p-2 mt-2 bg-gray-500 hover:bg-gray-600 rounded-md text-white text-sm w-[60%] md:w-[30%] lg:w-[20%] cursor-not-allowed"
+														: "text-center shrink-0 ml-9 p-2 mt-2 bg-indigo-500 hover:bg-[#ff6a6a] rounded-md text-white text-sm w-[60%] md:w-[30%] lg:w-[20%] cursor-pointer"
 												}`}
 											>
-												Upload New
+												Upload
 											</div>
 											<input
 												onChange={onUpload}
@@ -260,6 +261,19 @@ const Profile = () => {
 										disabled={reveal ? true : false}
 										maxLength={10}
 										className="mt-1 w-full rounded-md p-2 border border-gray-200 bg-white text-sm text-gray-700 shadow-sm cursor-pointer pl-10"
+									/>
+								</div>
+								
+								<div className="col-span-6 sm:col-span-6">
+									<label className="block text-sm font-medium text-gray-700">
+										Tell us about you!
+									</label>
+									<textarea
+										{...formik.getFieldProps("about")}										
+										className="mt-1 w-full rounded-md p-2 border border-gray-200 bg-white text-sm text-gray-700 shadow-sm cursor-pointer"
+										placeholder="Ex: Software Engineer? | Product Manager ? | Student? "
+										disabled={reveal ? true : false}
+										rows={5}
 									/>
 								</div>
 							</div>

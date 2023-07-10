@@ -28,6 +28,7 @@ const Dashboard = () => {
 						profile={data.profile}
 						firstName={data.firstName}
 						lastName={data.lastName}
+						about={data.about}
 					/>
 				))}
 			</div>

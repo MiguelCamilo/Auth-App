@@ -2,7 +2,7 @@ import { Avatar } from "flowbite-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
-const UserCards = ({ username, firstName, lastName, profile }) => {
+const UserCards = ({ username, firstName, lastName, profile, about }) => {
 	return (
 		<>
 			<div className="p-4">
@@ -29,8 +29,7 @@ const UserCards = ({ username, firstName, lastName, profile }) => {
 							{username}
 						</h1>
 						<p className="leading-relaxed mb-3">
-							Photo booth fam kinfolk cold-pressed sriracha leggings jianbing
-							microdosing tousled waistcoat.
+							{about || "Photo booth fam kinfolk cold-pressed sriracha leggings jianbing microdosing tousled waistcoat."}
 						</p>
 						<div className="flex items-center flex-wrap ">
 							<a className="text-indigo-500 hover:text-indigo-600 inline-flex items-center md:mb-2 lg:mb-0 cursor-pointer">
