@@ -1,5 +1,5 @@
-import LoadingAnim from "./LoadingAnim";
-import Navbar from "./Navbar";
+import LoadingAnim from "../components/LoadingAnim";
+import Navbar from "../components/Navbar";
 import convertToBase64 from "../helper/convert";
 import { useFetch } from "../hooks/fetch.hook";
 import { profileValidation } from "../helper/validate";

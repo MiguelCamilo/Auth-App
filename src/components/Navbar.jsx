@@ -4,13 +4,13 @@ import { useNavigate } from "react-router-dom";
 import Modal from "./Modal";
 
 import { Dropdown, Avatar } from "flowbite-react";
-import { Toaster, toast } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGear, faHouse } from "@fortawesome/free-solid-svg-icons";
 import { faComment } from "@fortawesome/free-solid-svg-icons";
 import { faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 
-export default function NavbarWithDropdown({ file }) {
+const Navbar = ({ file }) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [dropdownOpen, setDropdownOpen] = useState(false);
 	const [{ apiData }] = useFetch();
@@ -110,3 +110,5 @@ export default function NavbarWithDropdown({ file }) {
 		</nav>
 	);
 }
+
+export default Navbar

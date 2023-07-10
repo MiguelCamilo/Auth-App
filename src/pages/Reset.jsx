@@ -2,7 +2,7 @@ import { resetPasswordValidation } from "../helper/validate";
 import { resetPassword } from "../helper/axios";
 import { useAuthStore } from "../config/zustand-store";
 import { useFetch } from "../hooks/fetch.hook";
-import LoadingAnim from "./LoadingAnim";
+import LoadingAnim from "../components/LoadingAnim";
 
 import { useFormik } from "formik";
 import { useNavigate, Navigate } from "react-router-dom";

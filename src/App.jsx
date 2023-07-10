@@ -1,13 +1,13 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
-import Username from './components/Username'
-import Register from './components/Register'
-import Password from './components/Password'
-import Recovery from './components/Recovery'
-import Reset from './components/Reset'
-import Profile from './components/Profile'
-import Dashboard from './components/Dashboard'
-import PageNotFound from './components/PageNotFound'
+import Username from './pages/Username'
+import Register from './pages/Register'
+import Password from './pages/Password'
+import Recovery from './pages/Recovery'
+import Reset from './pages/Reset'
+import Profile from './pages/Profile'
+import Dashboard from './pages/Dashboard'
+import PageNotFound from './pages/PageNotFound'
 
 import './App.css'
 

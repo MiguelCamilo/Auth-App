@@ -1,43 +1,73 @@
-import Modal from "./Modal";
-import { usernameValidate } from "../helper/validate";
+import { useFetch } from "../hooks/fetch.hook";
 import { useAuthStore } from "../config/zustand-store";
+import { passwordValidate } from "../helper/validate";
+import { login } from "../helper/axios";
+import LoadingAnim from "../components/LoadingAnim";
 
-// react imports
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
+import toast, { Toaster } from "react-hot-toast";
+import { Avatar } from "flowbite-react";
 import { useFormik } from "formik";
-
-// style imports
-import { ScrollReveal } from "reveal-on-scroll-react";;
+import { ScrollReveal } from "reveal-on-scroll-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { faLock } from "@fortawesome/free-solid-svg-icons";
 
-const Username = () => {
-	const [isOpen, setIsOpen] = useState(false);
+const Password = () => {
+	// with the zustand store, the username is being stored in auth.username
+	// from the Username component from setUsername
+	// const { username } = useAuthStore(state => state.auth)
+	let username = sessionStorage.getItem("username");
+	const [{ isLoading, apiData, serverError }] = useFetch(`/user/${username}`);
+
 	const navigate = useNavigate();
 
-	// zustand state managment
-	const setUsername = useAuthStore((state) => state.setUsername);
-
-	// useFormik Hook
-	const userNameFormik = useFormik({
+	const formik = useFormik({
 		initialValues: {
-			username: "",
+			// empty string for initial value
+			password: "",
 		},
 		// only validate on submit instead of:
-		validate: usernameValidate,
+		validate: passwordValidate,
 		validateOnBlur: false,
 		validateOnChange: false,
 		onSubmit: async (values) => {
-			setUsername(values.username);
-			sessionStorage.setItem("username", values.username);
-			navigate("/password");
-			// console.log(values);
+			// password is stored in the values object
+			// login takes two arguments username and password
+			let loginPromise = login({ username, password: values.password });
+			toast.promise(loginPromise, {
+				loading: "Loading",
+				success: <b>Login Succesful!</b>,
+				error: <b>Authentication Error, try again.</b>,
+			});
+			loginPromise
+				.then((res) => {
+					// retrieving the jwt token from the data
+					let { token } = res.data;
+					// store for access in the updateUser func in axios
+					localStorage.setItem("token", token);
+					navigate("/profile");
+				})
+				.catch((error) => {
+					console.log(error);
+				});
 		},
 	});
 
+	if (isLoading) return <LoadingAnim />;
+	if (serverError)
+		return <h3 className="text-xl text-red-600">{serverError.message}</h3>;
+
 	return (
 		<>
+			<Toaster
+				position="top-center"
+				reverseOrder={false}
+				toastOptions={{
+					duration: 2000,
+				}}
+			/>
 			<section className="bg-white">
 				<div className="lg:grid lg:min-h-screen lg:grid-cols-12">
 					<div className="relative flex h-32 items-end bg-gray-900 lg:col-span-5 lg:h-full xl:col-span-6">
@@ -74,13 +104,14 @@ const Username = () => {
 						</div>
 					</div>
 
-					<main className="flex justify-center w-full lg:mt-[10rem] px-8 py-8 sm:px-12 lg:col-span-7 lg:px-16 lg:py-12 xl:col-span-6">
+					<main className="flex justify-center w-full mt-0 md:mt-[5rem] px-8 py-8 sm:px-12 lg:col-span-7 lg:px-16 lg:py-12 xl:col-span-6">
 						<div className="max-w-xl lg:max-w-3xl space-y-5">
 							<div className="relative -mt-16 block lg:hidden">
 								<a
 									className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-white text-blue-600 sm:h-20 sm:w-20"
 									href="/"
 								>
+									<span className="sr-only">Home</span>
 									<img
 										src="https://flowbite.com/docs/images/logo.svg"
 										className="h-8 sm:h-10"
@@ -98,68 +129,50 @@ const Username = () => {
 								</p>
 							</div>
 
-							<h2 className="text-2xl font-bold text-gray-900 sm:text-3xl md:text-4xl">
-								Log in to your Account
-							</h2>
-							<p className="leading-relaxed text-gray-500 text-center">
-								Welcome back!
-							</p>
+							<Avatar 
+								img={apiData?.profile}
+								size="lg"								
+							/>
 
-							<form onSubmit={userNameFormik.handleSubmit} className="mt-2">
+							<h2 className="text-[48px] font-sans font-bold text-center text-slate-800 tracking-wide">
+								Welcome back, {apiData?.username}!
+							</h2>
+							<p className="text-sm font-sans font-normal text-center text-gray-400"></p>
+
+							<form onSubmit={formik.handleSubmit} className="mt-2">
 								<div className="mb-5">
 									<label className="block text-sm font-medium text-gray-700 relative">
-										Username
+										Password
 									</label>
 									<div className="absolute flex items-center px-3 mt-4">
 										<FontAwesomeIcon
-											icon={faUser}
+											icon={faLock}
 											style={{ color: "#919191" }}
 										/>
 									</div>
-
 									<input
 										// sends the username to the formik initial value
-										{...userNameFormik.getFieldProps("username")}
-										type="text"
-										className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-md hover:shadow-lg pl-10 py-2.5"
+										{...formik.getFieldProps("password")}
+										type="password"
+										className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm pl-10 py-2.5"
 									/>
 								</div>
 								<button
 									type="submit"
 									className="w-full inline-block shrink-0 rounded-md border border-indigo-600 bg-indigo-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring active:text-blue-500"
 								>
-									Continue
+									Login
 								</button>
 							</form>
-
-							<div className="mt-3 border-t border-gray-300" />
-
-							<Link to="/register">
+							<div className="mt-6 border-t border-gray-300" />
+							<Link to="/recovery">
 								<div className="flex flex-row justify-center text-sm text-gray-500 mt-5">
-									Don't have an account?
-									<div className="text-gray-700 ml-1 underline">Register</div>
+									Forgot Password?
+									<div className="text-gray-700 ml-1 underline">
+										Reset Password
+									</div>
 								</div>
 							</Link>
-
-							{/* FEEDBACK MODAL */}
-							<div className="flex flex-col space-y-2 items-center justify-center">
-								<label
-									htmlFor="button"
-									className="text-xs text-center uppercase text-gray-400"
-								>
-									How can we improve?
-								</label>
-								<button
-									type="button"
-									onClick={() => {
-										setIsOpen(!isOpen);
-									}}
-									className="rounded-md bg-black bg-opacity-20 px-2 py-2 text-xs font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
-								>
-									Report Feedback
-								</button>
-							</div>
-							<Modal isOpen={isOpen} setIsOpen={setIsOpen} />
 						</div>
 					</main>
 				</div>
@@ -168,4 +181,4 @@ const Username = () => {
 	);
 };
 
-export default Username;
+export default Password;
