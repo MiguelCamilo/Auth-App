@@ -7,6 +7,7 @@ import Recovery from './pages/Recovery'
 import Reset from './pages/Reset'
 import Profile from './pages/Profile'
 import Dashboard from './pages/Dashboard'
+import Favorites from './pages/Favorites'
 import PageNotFound from './pages/PageNotFound'
 
 import './App.css'
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
   {
     path: '/dashboard',
     element: <AuthorizedUser> <Dashboard /> </AuthorizedUser>
+  },
+  {
+    path: '/favorites',
+    element: <AuthorizedUser> <Favorites /> </AuthorizedUser>
   },
   {
     path: '*',
