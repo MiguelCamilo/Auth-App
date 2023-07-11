@@ -12,7 +12,7 @@ import { Toaster, toast } from "react-hot-toast";
 import { useState } from "react";
 import { ScrollReveal } from "reveal-on-scroll-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import { faBriefcase, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { faPhone } from "@fortawesome/free-solid-svg-icons";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
@@ -31,6 +31,7 @@ const Profile = () => {
 			email: apiData?.email || "",
 			phoneNumber: apiData?.phoneNumber || "",
 			about: apiData?.about || "",
+			jobTitle: apiData?.jobTitle || "",
 		},
 		validate: profileValidation,
 		enableReinitialize: true,
@@ -82,13 +83,13 @@ const Profile = () => {
 
 			<div className="max-h-[2520px] max-w-[2520px] mx-auto xl:px-28 md:px-20 sm:px-2 px-4 bg-gray-100">
 				{/* container */}
-				<ScrollReveal.h1
+				<h1
 					delay={0}
 					easing="anticipate"
 					className="flex pt-[7rem] text-xl font-black"
 				>
 					Settings
-				</ScrollReveal.h1>
+				</h1>
 				<hr />
 				<div className="flex pt-4">
 					<div className="flex flex-col justify-start h-[50rem] p-10 bg-white w-full rounded relative">
@@ -103,7 +104,7 @@ const Profile = () => {
 
 						{/* FIRST ROW CONTAINER */}
 						<div className="flex justify-start w-full ">
-							<ScrollReveal.div
+							<div
 								delay={0.3}
 								easing="anticipate"
 								className="relative"
@@ -117,24 +118,24 @@ const Profile = () => {
 										size="xl"
 									/>
 								</label>
-							</ScrollReveal.div>
+							</div>
 
 							<div className="flex flex-col justify-start w-full">
 								<div className="flex flex-col">
-									<ScrollReveal.h2
+									<h2
 										delay={0.6}
 										easing="anticipate"
 										className="ml-10 text-lg font-semibold w-0"
 									>
 										Avatar
-									</ScrollReveal.h2>
-									<ScrollReveal.p
+									</h2>
+									<p
 										delay={0.6}
 										easing="anticipate"
 										className="ml-10 text-sm text-gray-500"
 									>
 										600x600 or larger recommended
-									</ScrollReveal.p>
+									</p>
 									<ScrollReveal.div
 										htmlFor="profile"
 										delay={0.6}
@@ -173,6 +174,28 @@ const Profile = () => {
 						{/* FORM */}
 						<form onSubmit={formik.handleSubmit}>
 							<div className="mt-8 grid grid-cols-6 gap-6 mx-5">
+								<div className="col-span-6 relative">
+									<label className="block text-sm font-medium text-gray-700">
+										Job Title
+									</label>
+									<div className="absolute inset-y-0 left-0 top-6 flex items-center pl-3 pointer-events-none">
+										<FontAwesomeIcon
+											icon={faBriefcase}
+											className={`${
+												reveal
+													? "text-gray-500"
+													: "text-green-500 animate-pulse"
+											}`}
+										/>
+									</div>
+									<input
+										{...formik.getFieldProps("jobTitle")}
+										type="text"
+										className="mt-1 w-full rounded-md p-2 border border-gray-200 bg-white text-sm text-gray-700 shadow-sm cursor-pointer pl-10"
+										disabled={reveal ? true : false}
+									/>
+								</div>
+
 								<div className="col-span-6 sm:col-span-3 relative">
 									<label className="block text-sm font-medium text-gray-700">
 										First Name
@@ -297,7 +320,7 @@ const Profile = () => {
 						</div>
 						<hr />
 						<Link to={"/recovery"}>
-							<button className="bg-gray-500 hover:bg-gray-400 duration-150 p-2 mt-5 rounded-md text-white">
+							<button className="bg-gray-500 hover:bg-gray-400 duration-150 p-2 my-3 rounded-md text-white">
 								Reset Password
 							</button>
 						</Link>

@@ -2,15 +2,15 @@ import { Avatar } from "flowbite-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
-const UserCards = ({ username, firstName, lastName, profile, about }) => {
+const UserCards = ({ username, firstName, lastName, profile, about, jobTitle }) => {
 	return (
 		<>
-			<div className="p-4">
-				<div className="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
+			<div className="p-2">
+				<div className="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden shadow-md">
 					<div className="relative">
 					<Avatar 
 						size="md"
-						className="absolute top-5 right-10"
+						className="absolute top-2 right-5"
 						img={profile}
 					/>
 					</div>
@@ -24,11 +24,11 @@ const UserCards = ({ username, firstName, lastName, profile, about }) => {
 								{firstName} {lastName}
 							</h2>
 						)}
-						<h1 className="title-font capitalize text-md font-medium text-gray-900 mb-3">
+						<h1 className="title-font capitalize text-md font-sans font-black text-gray-900 mb-3">
 							{/* <span className="text-xs title-font font-medium text-gray-400">Username: {" "}</span> */}
-							{username}
+							{jobTitle}
 						</h1>
-						<p className="leading-relaxed mb-3">
+						<p className="leading-relaxed text-sm mb-3">
 							{about || "Photo booth fam kinfolk cold-pressed sriracha leggings jianbing microdosing tousled waistcoat."}
 						</p>
 						<div className="flex items-center flex-wrap ">

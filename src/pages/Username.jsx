@@ -1,4 +1,5 @@
 import Modal from "../components/Modal";
+import NotifcationToast from "../components/NotifcationToast";
 import { usernameValidate } from "../helper/validate";
 import { useAuthStore } from "../config/zustand-store";
 
@@ -8,7 +9,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 
 // style imports
-import { ScrollReveal } from "reveal-on-scroll-react";;
+import { ScrollReveal } from "reveal-on-scroll-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 
@@ -97,7 +98,7 @@ const Username = () => {
 									one seamless and organized place.
 								</p>
 							</div>
-
+							<NotifcationToast />
 							<h2 className="text-2xl font-bold text-gray-900 sm:text-3xl md:text-4xl">
 								Log in to your Account
 							</h2>

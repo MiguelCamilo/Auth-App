@@ -29,6 +29,7 @@ const Dashboard = () => {
 						firstName={data.firstName}
 						lastName={data.lastName}
 						about={data.about}
+						jobTitle={data.jobTitle}
 					/>
 				))}
 			</div>
