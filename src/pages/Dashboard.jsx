@@ -11,6 +11,7 @@ const Dashboard = () => {
 	const [{ isLoading, apiData = [], serverError }] = useFetch(`/getallusers`);
 
 	if (isLoading) return <LoadingAnim />;
+	if(serverError) return <h2>{serverError.message}</h2>
 	return (
 		<>
 			<Navbar />
