@@ -168,6 +168,7 @@ const Profile = () => {
 						</div>
 						<div className="pt-10 font-extrabold">
 							<h3>Personal details</h3>
+							<p className="text-red-600 text-xs italic">Please fill out all fields to populate your profile correctly!</p>
 							<hr />
 						</div>
 
