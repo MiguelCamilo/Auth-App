@@ -29,7 +29,7 @@ const UserCards = ({ username, firstName, lastName, profile, about, jobTitle }) 
 							{jobTitle}
 						</h1>
 						<p className="leading-relaxed text-sm mb-3">
-							{about || "Photo booth fam kinfolk cold-pressed sriracha leggings jianbing microdosing tousled waistcoat."}
+							{about || "No about section added, but don't be afraid to learn more and reach out!"}
 						</p>
 						<div className="flex items-center flex-wrap ">
 							<a className="text-indigo-500 hover:text-indigo-600 inline-flex items-center md:mb-2 lg:mb-0 cursor-pointer">
