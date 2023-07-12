@@ -103,7 +103,7 @@ const Navbar = ({ file }) => {
 							Sign out
 						</Dropdown.Item>
 					</Dropdown>
-					<p className="text-white m-2 hidden sm:block">{apiData?.username}</p>
+					{/* <p className="text-white m-2 hidden sm:block">{apiData?.username}</p> */}
 				</div>
 				<Modal isOpen={isOpen} setIsOpen={setIsOpen} />
 			</div>
